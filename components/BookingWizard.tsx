@@ -136,8 +136,8 @@ export const BookingWizard: React.FC = () => {
       
       {/* Image Section - Left Side */}
       <div className="shrink-0 relative">
-        <div className="https://hsuliang.github.io/booking/images/Aling-home.png">
-            {/* 這裡請替換成您去背好的照片連結，目前使用示意圖 */}
+        <div className="w-48 h-48 md:w-64 md:h-64 relative z-10">
+            {/* Logo 圖片位置 */}
             <img 
               src="https://hsuliang.github.io/booking/images/Aliang.png" 
               alt="丫亮笑長" 
