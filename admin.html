@@ -347,6 +347,11 @@
                         <label class="block text-sm font-bold text-gray-700 mb-1">課程簡介 <span class="text-xs text-gray-500 font-normal">(請簡述課程內容與目標)</span></label>
                         <textarea name="description" class="w-full border p-2 rounded h-24 focus:ring-2 focus:ring-indigo-500 outline-none" required></textarea>
                     </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">備註說明 <span class="text-xs text-gray-500 font-normal">(例如：上課地點、有無廣播設備、學員需要帶載具等等)</span></label>
+                        <textarea name="requirements" class="w-full border p-2 rounded h-20 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="輸入此課程的特殊需求或注意事項..."></textarea>
+                    </div>
                     
                     <div class="grid grid-cols-2 gap-4">
                         <div>
@@ -833,7 +838,8 @@
                  duration: duration,
                  category: category,
                  tags: tags,
-                 image: form.imageUrl.value 
+                 image: form.imageUrl.value,
+                 requirements: form.requirements.value
              };
              
              const docId = form.courseId.value;
@@ -860,6 +866,7 @@
             form.courseId.value = id;
             form.title.value = data.title;
             form.description.value = data.description;
+            form.requirements.value = data.requirements || '';
             
             // Handle Duration Edit Logic
             const standardDurations = ['3小時', '6小時'];

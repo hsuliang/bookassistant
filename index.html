@@ -36,7 +36,6 @@
             </div>
             <div class="flex items-center space-x-4">
                 <a href="about.html" class="text-sm hover:text-yellow-400 transition"><i class="fa-solid fa-user-circle"></i> 關於講師</a>
-                <a href="admin.html" class="text-sm hover:text-yellow-400 transition"><i class="fa-solid fa-user-gear"></i> 管理端後台</a>
             </div>
         </div>
     </nav>
@@ -255,8 +254,13 @@
 
             <div class="flex flex-col">
                 <!-- Image Top (Strict 16:9) -->
-                <div class="relative w-full pb-[56.25%] bg-gray-200 shrink-0">
+                <div class="relative w-full pb-[56.25%] bg-gray-200 shrink-0 group">
                     <img id="modal-course-img" src="" alt="Course Image" class="absolute inset-0 w-full h-full object-cover">
+                    <!-- Floating Action Button -->
+                    <button id="modal-book-btn" class="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105 flex items-center justify-center z-20 whitespace-nowrap border-2 border-white">
+                        <span>立即預約此課程</span>
+                        <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
                 </div>
 
                 <!-- Content Bottom -->
@@ -271,16 +275,17 @@
                         <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full"><i class="fa-regular fa-clock mr-1"></i> <span id="modal-course-duration"></span></span>
                     </div>
 
-                    <div class="prose prose-sm text-gray-600 mb-8 overflow-y-auto max-h-[40vh] custom-scrollbar">
+                    <div class="prose prose-sm text-gray-600 mb-2 overflow-y-auto max-h-[40vh] custom-scrollbar">
                         <h4 class="font-bold text-gray-800 mb-2">課程介紹</h4>
-                        <p id="modal-course-desc" class="whitespace-pre-line leading-relaxed"></p>
-                    </div>
-
-                    <div class="mt-auto pt-6 border-t border-gray-100">
-                        <button id="modal-book-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition transform hover:scale-[1.02] flex items-center justify-center">
-                            <span>立即預約此課程</span>
-                            <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </button>
+                        <p id="modal-course-desc" class="whitespace-pre-line leading-relaxed mb-6"></p>
+                        
+                        <!-- New Requirements Section -->
+                        <div id="modal-req-section" class="hidden">
+                            <h4 class="font-bold text-gray-800 mb-2">備註說明</h4>
+                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r">
+                                <p id="modal-course-req" class="whitespace-pre-line text-yellow-800"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -394,16 +399,16 @@
                              </div>
                         </div>
                         <div class="p-6 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-2">
-                                <div class="flex items-center flex-wrap gap-y-1">
-                                    <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">${data.category || '演講'}</span>
-                                    ${tagsHtml}
-                                </div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">${data.category || '演講'}</span>
                                 <span class="text-gray-500 text-xs flex-shrink-0 ml-2"><i class="fa-regular fa-clock"></i> ${data.duration}</span>
                             </div>
-                            <h3 class="text-xl font-bold mb-2 text-gray-900 cursor-pointer hover:text-blue-600" onclick="openCourseDetail('${doc.id}')">${data.title}</h3>
-                            <p class="text-gray-600 text-sm mb-4 line-clamp-3 flex-1">${data.description}</p>
-                            <button onclick="selectCourse('${doc.id}', '${data.title}')" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">立即預約</button>
+                            <div class="flex items-center flex-wrap gap-y-1 mb-2 h-6 overflow-hidden">
+                                ${tagsHtml}
+                            </div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-900 cursor-pointer hover:text-blue-600 truncate" onclick="openCourseDetail('${doc.id}')">${data.title}</h3>
+                            <div class="flex-1"></div>
+                            <button onclick="openCourseDetail('${doc.id}')" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">詳細內容</button>
                         </div>
                     </div>`;
                 });
@@ -424,6 +429,32 @@
             document.getElementById('modal-course-category').innerText = course.category || '一般';
             document.getElementById('modal-course-duration').innerText = course.duration;
             document.getElementById('modal-course-desc').innerText = course.description;
+
+            // Populate Requirements
+            let reqSection = document.getElementById('modal-req-section');
+            if(!reqSection) {
+                // If the section doesn't exist yet (first run), create it
+                const descP = document.getElementById('modal-course-desc');
+                reqSection = document.createElement('div');
+                reqSection.id = 'modal-req-section';
+                reqSection.className = 'hidden mt-6';
+                reqSection.innerHTML = `
+                    <h4 class="font-bold text-gray-800 mb-2">備註說明</h4>
+                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r">
+                        <p id="modal-course-req" class="whitespace-pre-line text-yellow-800"></p>
+                    </div>
+                `;
+                descP.parentNode.insertBefore(reqSection, descP.nextSibling);
+            }
+
+            const reqText = document.getElementById('modal-course-req');
+            
+            if (course.requirements && course.requirements.trim() !== "") {
+                reqText.innerText = course.requirements;
+                reqSection.classList.remove('hidden');
+            } else {
+                reqSection.classList.add('hidden');
+            }
 
             // Populate Modal Tags
             const tagsContainer = document.getElementById('modal-course-tags');
@@ -625,6 +656,9 @@
                 </a>
                 <a href="https://bit.ly/Aliang" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition" aria-label="ㄚ亮笑長練功坊">
                     <i class="fa-solid fa-globe"></i>
+                </a>
+                <a href="admin.html" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition" aria-label="管理端後台">
+                    <i class="fa-solid fa-user-gear"></i>
                 </a>
             </div>
             <p class="mb-2">
