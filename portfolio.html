@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ㄚ亮笑長作品集 - 丫亮笑長的上課助手</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        /* Hero Background - Light Theme Adapted */
+        .hero-bg {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); /* blue-50 to blue-100 */
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Consistent Nav with Index -->
+    <nav class="bg-gray-900 text-white p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <div class="flex items-center space-x-2">
+                <a href="index.html" class="flex items-center space-x-2 hover:opacity-90 transition">
+                    <img src="images/Alianglogo.png" alt="丫亮笑長" class="h-10 w-10 p-1 rounded-lg bg-yellow-400 object-contain">
+                    <div>
+                        <h1 class="text-xl font-bold">丫亮笑長的上課助手</h1>
+                        <p class="text-xs text-gray-400">預約與課程管理系統</p>
+                    </div>
+                </a>
+            </div>
+            <div class="flex items-center space-x-6 hidden md:flex">
+                <a href="index.html" class="text-sm hover:text-yellow-400 transition font-medium"><i class="fa-solid fa-chalkboard-user"></i> 課程預約</a>
+                <a href="about.html" class="text-sm hover:text-yellow-400 transition font-medium"><i class="fa-solid fa-user-circle"></i> 關於講師</a>
+                <a href="portfolio.html" class="text-sm text-yellow-400 font-bold transition"><i class="fa-solid fa-briefcase"></i> 作品集</a>
+            </div>
+             <!-- Mobile Menu Button (Simple implementation) -->
+             <div class="md:hidden">
+                <a href="portfolio.html" class="text-yellow-400 font-bold"><i class="fa-solid fa-briefcase"></i> 作品集</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg py-16 px-6 text-center relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-md inline-block mb-4">
+                Creative Tools
+            </span>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+                ㄚ亮笑長<span class="text-blue-600">作品集</span>
+            </h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                這裡匯集了ㄚ亮笑長開發的各式實用小工具，旨在協助教學現場的老師們提升效率，讓課堂更生動有趣。歡迎自由使用與分享！
+            </p>
+        </div>
+    </header>
+
+    <!-- Portfolio Grid -->
+    <section class="py-16 px-6 bg-white flex-grow">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Card 1 -->
+                <a href="https://hsuliang.github.io/lottery/" target="_blank" class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-blue-600 transition duration-300">
+                        <i class="fa-solid fa-ticket text-2xl text-blue-600 group-hover:text-white transition duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">ㄚ亮笑長的摸彩助手</h3>
+                    <p class="text-gray-600 text-sm flex-grow">
+                        輕鬆進行抽獎活動的實用工具，讓摸彩過程更加刺激有趣。
+                    </p>
+                    <div class="mt-4 flex items-center text-blue-600 text-sm font-bold">
+                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </a>
+
+                <!-- Card 2 -->
+                <a href="https://hsuliang.github.io/QuestWiz/" target="_blank" class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-yellow-500 transition duration-300">
+                        <i class="fa-solid fa-circle-question text-2xl text-yellow-500 group-hover:text-white transition duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition">ㄚ亮笑長的出題助手</h3>
+                    <p class="text-gray-600 text-sm flex-grow">
+                        協助老師快速出題，節省備課時間，提升教學效率的好幫手。
+                    </p>
+                    <div class="mt-4 flex items-center text-yellow-600 text-sm font-bold">
+                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </a>
+
+                <!-- Card 3 -->
+                <a href="https://hsuliang.github.io/YTTB/" target="_blank" class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-red-600 transition duration-300">
+                        <i class="fa-brands fa-youtube text-2xl text-red-600 group-hover:text-white transition duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition">ㄚ亮笑長的內容創作助手</h3>
+                    <p class="text-gray-600 text-sm flex-grow">
+                        專為內容創作者設計，協助整理素材與靈感的強大工具。
+                    </p>
+                    <div class="mt-4 flex items-center text-red-600 text-sm font-bold">
+                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </a>
+
+                <!-- Card 4 -->
+                <a href="https://hsuliang.github.io/bookassistant/" target="_blank" class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-green-600 transition duration-300">
+                        <i class="fa-solid fa-chalkboard-user text-2xl text-green-600 group-hover:text-white transition duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition">丫亮笑長的上課助手</h3>
+                    <p class="text-gray-600 text-sm flex-grow">
+                        整合預約與課程管理的系統，讓教學安排井然有序。
+                    </p>
+                    <div class="mt-4 flex items-center text-green-600 text-sm font-bold">
+                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </a>
+
+                <!-- Card 5 -->
+                <a href="https://hsuliang.github.io/tools/padletQR.html" target="_blank" class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-purple-600 transition duration-300">
+                        <i class="fa-solid fa-qrcode text-2xl text-purple-600 group-hover:text-white transition duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition">ㄚ亮笑長的Qrcode助手</h3>
+                    <p class="text-gray-600 text-sm flex-grow">
+                        快速生成 QR Code，方便課堂分享網址或資訊。
+                    </p>
+                    <div class="mt-4 flex items-center text-purple-600 text-sm font-bold">
+                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </a>
+
+                <!-- Card 6 -->
+                <a href="https://hsuliang.github.io/tools/reurl.html" target="_blank" class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-indigo-600 transition duration-300">
+                        <i class="fa-solid fa-link text-2xl text-indigo-600 group-hover:text-white transition duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition">丫亮笑長的縮網址助手</h3>
+                    <p class="text-gray-600 text-sm flex-grow">
+                        將冗長的網址縮短，讓分享連結變得更乾淨俐落。
+                    </p>
+                    <div class="mt-4 flex items-center text-indigo-600 text-sm font-bold">
+                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </a>
+
+                <!-- Card 7 -->
+                <a href="https://hsuliang.github.io/cdown2.html" target="_blank" class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-pink-500 transition duration-300">
+                        <i class="fa-solid fa-stopwatch text-2xl text-pink-500 group-hover:text-white transition duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-pink-600 transition">可愛簡易倒數計時器</h3>
+                    <p class="text-gray-600 text-sm flex-grow">
+                        簡單可愛的倒數計時器，適合課堂活動或時間管理使用。
+                    </p>
+                    <div class="mt-4 flex items-center text-pink-600 text-sm font-bold">
+                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-8 mt-0">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="mailto:hsuliang@gmail.com" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition" aria-label="Email 聯絡">
+                    <i class="fa-regular fa-envelope"></i>
+                </a>
+                <a href="https://bit.ly/Aliang" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition" aria-label="ㄚ亮笑長練功坊">
+                    <i class="fa-solid fa-globe"></i>
+                </a>
+                <a href="admin.html" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition" aria-label="管理端">
+                    <i class="fa-solid fa-user-gear"></i>
+                </a>
+            </div>
+            <p class="mb-2">
+                &copy; 2025 ㄚ亮笑長. All Rights Reserved.
+            </p>
+            <p class="text-xs text-gray-500">
+                Powered by Firebase Firestore & EmailJS for seamless booking experience.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
