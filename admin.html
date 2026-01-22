@@ -195,14 +195,32 @@
                  <button onclick="switchTab('dashboard')" class="mb-4 text-gray-500 hover:text-blue-600 flex items-center text-sm transition"><i class="fa-solid fa-arrow-left mr-1"></i> 回儀表板</button>
                  
                  <div class="flex flex-wrap justify-between items-center mb-6 mt-2 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-4 flex-wrap">
                         <h2 class="text-xl font-bold text-gray-800"><i class="fa-solid fa-chart-pie mr-2 text-indigo-600"></i> 營運報表中心</h2>
-                        <div class="h-6 w-px bg-gray-300"></div>
-                        <select id="report-year" onchange="loadReports()" class="border-gray-300 border rounded-md p-2 text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                            <!-- JS populated years -->
+                        <div class="h-6 w-px bg-gray-300 hidden md:block"></div>
+                        
+                        <!-- Mode Selector -->
+                        <select id="report-mode" onchange="toggleReportMode()" class="border-gray-300 border rounded-md p-2 text-sm focus:ring-indigo-500 focus:border-indigo-500 font-bold text-indigo-700 bg-indigo-50">
+                            <option value="year">📅 依年度檢視</option>
+                            <option value="custom">🛠 自訂區間</option>
                         </select>
+
+                        <!-- Year Mode UI -->
+                        <span id="report-mode-year" class="flex items-center gap-2">
+                            <select id="report-year" onchange="loadReports()" class="border-gray-300 border rounded-md p-2 text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                <!-- JS populated years -->
+                            </select>
+                        </span>
+
+                        <!-- Custom Range Mode UI -->
+                        <span id="report-mode-custom" class="hidden flex items-center gap-2">
+                            <input type="date" id="report-start" class="border p-2 rounded text-sm w-32">
+                            <span class="text-gray-400">~</span>
+                            <input type="date" id="report-end" class="border p-2 rounded text-sm w-32">
+                            <button onclick="loadReports()" class="bg-indigo-600 text-white px-3 py-2 rounded hover:bg-indigo-700 transition"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </span>
                     </div>
-                    <button onclick="exportToCSV()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 shadow flex items-center text-sm font-bold transition">
+                    <button onclick="exportToCSV()" class="mt-2 md:mt-0 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 shadow flex items-center text-sm font-bold transition">
                         <i class="fa-solid fa-file-excel mr-2"></i> 匯出 CSV 報表
                     </button>
                 </div>
@@ -1401,7 +1419,6 @@
             const yearSelect = document.getElementById('report-year');
             const currentYear = new Date().getFullYear();
             yearSelect.innerHTML = '';
-            // Generate range: 2 years ago to next year
             for(let y = currentYear - 2; y <= currentYear + 1; y++) {
                 const opt = document.createElement('option');
                 opt.value = y;
@@ -1409,21 +1426,53 @@
                 if(y === currentYear) opt.selected = true;
                 yearSelect.appendChild(opt);
             }
+
+            // Init Custom Date Inputs (Default to This Month)
+            const today = new Date();
+            const firstDay = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0];
+            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0];
+            document.getElementById('report-start').value = firstDay;
+            document.getElementById('report-end').value = lastDay;
+
             loadReports();
         }
 
+        function toggleReportMode() {
+            const mode = document.getElementById('report-mode').value;
+            if (mode === 'year') {
+                document.getElementById('report-mode-year').classList.remove('hidden');
+                document.getElementById('report-mode-custom').classList.add('hidden');
+            } else {
+                document.getElementById('report-mode-year').classList.add('hidden');
+                document.getElementById('report-mode-custom').classList.remove('hidden');
+                document.getElementById('report-mode-custom').classList.add('flex');
+            }
+            loadReports(); // Reload data based on new mode
+        }
+
         function loadReports() {
-            const selectedYear = parseInt(document.getElementById('report-year').value);
-            
-            // Filter Data (Confirmed/Completed/Pending - maybe exclude cancelled)
-            // Let's include Pending for "Potential" but usually reports focus on Confirmed/Completed
-            // Here we use Confirmed + Completed for Revenue, maybe all for counts?
-            // Let's stick to valid bookings (not cancelled)
-            
-            const reportData = bookingsData.filter(d => {
-                const date = new Date(d.date);
-                return d.status !== 'cancelled' && date.getFullYear() === selectedYear;
-            });
+            const mode = document.getElementById('report-mode').value;
+            let reportData = [];
+
+            if (mode === 'year') {
+                const selectedYear = parseInt(document.getElementById('report-year').value);
+                reportData = bookingsData.filter(d => {
+                    const date = new Date(d.date);
+                    return d.status !== 'cancelled' && date.getFullYear() === selectedYear;
+                });
+            } else {
+                const startStr = document.getElementById('report-start').value;
+                const endStr = document.getElementById('report-end').value;
+                if (!startStr || !endStr) return; // Wait for inputs
+                
+                const start = new Date(startStr);
+                const end = new Date(endStr);
+                
+                reportData = bookingsData.filter(d => {
+                    const date = new Date(d.date);
+                    return d.status !== 'cancelled' && date >= start && date <= end;
+                });
+            }
 
             // 1. Aggregation
             const monthlyRevenue = new Array(12).fill(0);
@@ -1444,11 +1493,6 @@
                 totalRevenue += fee;
 
                 // Category
-                // We need to fetch category from course? 
-                // Currently bookings don't store category explicitly, only courseName.
-                // We can try to infer or just group by CourseName if category is missing.
-                // Or better: load courses cache to map Name -> Category. 
-                // For now, let's group by Course Name (Top 5) + Others
                 const cat = d.courseName || '未分類';
                 categoryStats[cat] = (categoryStats[cat] || 0) + 1;
 
@@ -1572,14 +1616,31 @@
         }
 
         function exportToCSV() {
-            const selectedYear = document.getElementById('report-year').value;
-            const dataToExport = bookingsData.filter(d => {
-                const date = new Date(d.date);
-                return d.status !== 'cancelled' && date.getFullYear() == selectedYear;
-            });
+            const mode = document.getElementById('report-mode').value;
+            let dataToExport = [];
+            let fileName = '報表.csv';
+
+            if (mode === 'year') {
+                const selectedYear = document.getElementById('report-year').value;
+                fileName = `課程營運報表_${selectedYear}.csv`;
+                dataToExport = bookingsData.filter(d => {
+                    const date = new Date(d.date);
+                    return d.status !== 'cancelled' && date.getFullYear() == selectedYear;
+                });
+            } else {
+                const startStr = document.getElementById('report-start').value;
+                const endStr = document.getElementById('report-end').value;
+                fileName = `課程營運報表_${startStr}_${endStr}.csv`;
+                const start = new Date(startStr);
+                const end = new Date(endStr);
+                dataToExport = bookingsData.filter(d => {
+                    const date = new Date(d.date);
+                    return d.status !== 'cancelled' && date >= start && date <= end;
+                });
+            }
 
             if(dataToExport.length === 0) {
-                alert("該年度無資料可匯出");
+                alert("該區間無資料可匯出");
                 return;
             }
 
@@ -1611,7 +1672,7 @@
             const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `課程營運報表_${selectedYear}.csv`);
+            link.setAttribute("download", fileName);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
