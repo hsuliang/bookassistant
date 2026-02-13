@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +10,10 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="config.js"></script>
+    <script src="js/config.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body class="bg-gray-100 font-sans text-gray-800">
 
     <div id="login-modal" class="fixed inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-50">
@@ -31,16 +33,21 @@
             <h1 class="font-bold text-xl"><i class="fa-solid fa-gear"></i> 丫亮笑長練功坊預約助手</h1>
             <div class="flex items-center space-x-4">
                 <a href="index.html" class="hover:text-yellow-300 font-medium"><i class="fa-solid fa-house"></i> 回首頁</a>
-                <button onclick="switchTab('dashboard')" class="hover:text-yellow-300 font-medium"><i class="fa-solid fa-chart-line"></i> 課程儀表板</button>
-                <button onclick="switchTab('bookings')" class="hover:text-yellow-300 font-medium"><i class="fa-solid fa-calendar-days"></i> 課程管理</button>
-                <button onclick="switchTab('reports')" class="hover:text-yellow-300 font-medium"><i class="fa-solid fa-chart-pie"></i> 報表中心</button>
-                <button onclick="switchTab('courses')" class="hover:text-yellow-300 font-medium"><i class="fa-solid fa-book-open-reader"></i> 課程設定</button>
-                <button onclick="logout()" class="bg-indigo-800 px-3 py-1 rounded text-sm hover:bg-indigo-900"><i class="fa-solid fa-right-from-bracket"></i> 登出</button>
+                <button onclick="switchTab('dashboard')" class="hover:text-yellow-300 font-medium"><i
+                        class="fa-solid fa-chart-line"></i> 課程儀表板</button>
+                <button onclick="switchTab('bookings')" class="hover:text-yellow-300 font-medium"><i
+                        class="fa-solid fa-calendar-days"></i> 課程管理</button>
+                <button onclick="switchTab('reports')" class="hover:text-yellow-300 font-medium"><i
+                        class="fa-solid fa-chart-pie"></i> 報表中心</button>
+                <button onclick="switchTab('courses')" class="hover:text-yellow-300 font-medium"><i
+                        class="fa-solid fa-book-open-reader"></i> 課程設定</button>
+                <button onclick="logout()" class="bg-indigo-800 px-3 py-1 rounded text-sm hover:bg-indigo-900"><i
+                        class="fa-solid fa-right-from-bracket"></i> 登出</button>
             </div>
         </header>
 
         <div class="flex-1 container mx-auto p-6">
-            
+
             <!-- Dashboard Tab -->
             <div id="tab-dashboard">
                 <div class="mb-8">
@@ -51,7 +58,8 @@
                 <!-- Stats Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     <!-- Income Card -->
-                    <div onclick="showDashboardDetail('income')" class="cursor-pointer hover:scale-105 transition transform bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl shadow-lg p-6 text-white">
+                    <div onclick="showDashboardDetail('income')"
+                        class="cursor-pointer hover:scale-105 transition transform bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl shadow-lg p-6 text-white">
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-emerald-100 text-sm font-medium mb-1">本月預估收入</p>
@@ -65,7 +73,8 @@
                     </div>
 
                     <!-- Pending Card -->
-                    <div onclick="showDashboardDetail('pending')" class="cursor-pointer hover:scale-105 transition transform bg-gradient-to-r from-amber-400 to-orange-500 rounded-xl shadow-lg p-6 text-white">
+                    <div onclick="showDashboardDetail('pending')"
+                        class="cursor-pointer hover:scale-105 transition transform bg-gradient-to-r from-amber-400 to-orange-500 rounded-xl shadow-lg p-6 text-white">
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-amber-100 text-sm font-medium mb-1">待確認邀約</p>
@@ -75,11 +84,13 @@
                                 <i class="fa-solid fa-bell text-2xl"></i>
                             </div>
                         </div>
-                        <p class="text-amber-100 text-xs mt-4"><i class="fa-solid fa-circle-exclamation"></i> 請盡快審核回覆</p>
+                        <p class="text-amber-100 text-xs mt-4"><i class="fa-solid fa-circle-exclamation"></i> 請盡快審核回覆
+                        </p>
                     </div>
 
                     <!-- Upcoming Card -->
-                    <div onclick="showDashboardDetail('upcoming')" class="cursor-pointer hover:scale-105 transition transform bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-lg p-6 text-white">
+                    <div onclick="showDashboardDetail('upcoming')"
+                        class="cursor-pointer hover:scale-105 transition transform bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-lg p-6 text-white">
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-blue-100 text-sm font-medium mb-1">即將來到課程</p>
@@ -93,7 +104,8 @@
                     </div>
 
                     <!-- Unpaid Card -->
-                    <div onclick="showDashboardDetail('unpaid')" class="cursor-pointer hover:scale-105 transition transform bg-gradient-to-r from-rose-500 to-pink-600 rounded-xl shadow-lg p-6 text-white">
+                    <div onclick="showDashboardDetail('unpaid')"
+                        class="cursor-pointer hover:scale-105 transition transform bg-gradient-to-r from-rose-500 to-pink-600 rounded-xl shadow-lg p-6 text-white">
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-rose-100 text-sm font-medium mb-1">未入帳款項</p>
@@ -103,18 +115,22 @@
                                 <i class="fa-solid fa-file-invoice-dollar text-2xl"></i>
                             </div>
                         </div>
-                        <p class="text-rose-100 text-xs mt-4"><i class="fa-solid fa-triangle-exclamation"></i> 已確認但未收款</p>
+                        <p class="text-rose-100 text-xs mt-4"><i class="fa-solid fa-triangle-exclamation"></i> 已確認但未收款
+                        </p>
                     </div>
                 </div>
 
                 <!-- Main Content Grid -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    
+
                     <!-- Left Col: Pending List -->
                     <div class="lg:col-span-2 bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
                         <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                            <h3 class="font-bold text-gray-800"><i class="fa-solid fa-clipboard-list text-amber-500 mr-2"></i> 待確認邀約列表</h3>
-                            <button onclick="showDashboardDetail('pending')" class="text-sm text-blue-600 hover:text-blue-800">查看全部 <i class="fa-solid fa-arrow-right"></i></button>
+                            <h3 class="font-bold text-gray-800"><i
+                                    class="fa-solid fa-clipboard-list text-amber-500 mr-2"></i> 待確認邀約列表</h3>
+                            <button onclick="showDashboardDetail('pending')"
+                                class="text-sm text-blue-600 hover:text-blue-800">查看全部 <i
+                                    class="fa-solid fa-arrow-right"></i></button>
                         </div>
                         <div class="divide-y divide-gray-100" id="dash-pending-list">
                             <!-- JS populated -->
@@ -125,33 +141,42 @@
                     <!-- Right Col: Upcoming Schedule -->
                     <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
                         <div class="p-5 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
-                            <h3 class="font-bold text-gray-800"><i class="fa-solid fa-timeline text-blue-500 mr-2"></i> 近期通告行程</h3>
-                             <button onclick="showDashboardDetail('upcoming')" class="text-sm text-blue-600 hover:text-blue-800">全部 <i class="fa-solid fa-arrow-right"></i></button>
+                            <h3 class="font-bold text-gray-800"><i class="fa-solid fa-timeline text-blue-500 mr-2"></i>
+                                近期通告行程</h3>
+                            <button onclick="showDashboardDetail('upcoming')"
+                                class="text-sm text-blue-600 hover:text-blue-800">全部 <i
+                                    class="fa-solid fa-arrow-right"></i></button>
                         </div>
                         <div class="p-4" id="dash-schedule-list">
-                             <!-- JS populated -->
-                             <div class="text-center text-gray-400 py-4">載入中...</div>
+                            <!-- JS populated -->
+                            <div class="text-center text-gray-400 py-4">載入中...</div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div id="tab-bookings" class="hidden">
-                <button onclick="switchTab('dashboard')" class="mb-4 text-gray-500 hover:text-blue-600 flex items-center text-sm transition"><i class="fa-solid fa-arrow-left mr-1"></i> 回儀表板</button>
-                
+                <button onclick="switchTab('dashboard')"
+                    class="mb-4 text-gray-500 hover:text-blue-600 flex items-center text-sm transition"><i
+                        class="fa-solid fa-arrow-left mr-1"></i> 回儀表板</button>
+
                 <!-- Unified Toolbar -->
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-wrap gap-4 items-center justify-between mb-6">
-                    
+                <div
+                    class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-wrap gap-4 items-center justify-between mb-6">
+
                     <!-- Filters Group -->
                     <div class="flex flex-wrap gap-2 items-center">
                         <div class="text-gray-400 text-sm mr-1"><i class="fa-solid fa-filter"></i></div>
-                        <select id="filter-month" onchange="renderBookings()" class="p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:bg-white transition hover:border-blue-400">
+                        <select id="filter-month" onchange="renderBookings()"
+                            class="p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:bg-white transition hover:border-blue-400">
                             <option value="">全部月份</option>
                         </select>
-                        <select id="filter-org" onchange="renderBookings()" class="p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:bg-white transition hover:border-blue-400 max-w-[150px]">
+                        <select id="filter-org" onchange="renderBookings()"
+                            class="p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:bg-white transition hover:border-blue-400 max-w-[150px]">
                             <option value="">全部單位</option>
                         </select>
-                        <select id="filter-course" onchange="renderBookings()" class="p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:bg-white transition hover:border-blue-400 max-w-[150px]">
+                        <select id="filter-course" onchange="renderBookings()"
+                            class="p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:bg-white transition hover:border-blue-400 max-w-[150px]">
                             <option value="">全部課程</option>
                         </select>
                     </div>
@@ -159,16 +184,20 @@
                     <!-- Search & Actions Group -->
                     <div class="flex flex-wrap gap-3 items-center flex-1 justify-end">
                         <div class="relative">
-                            <input type="text" id="search-input" oninput="currentSearch=this.value; renderBookings()" placeholder="搜尋關鍵字..." class="pl-9 p-2 border border-gray-300 rounded-lg w-48 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            <input type="text" id="search-input" oninput="currentSearch=this.value; renderBookings()"
+                                placeholder="搜尋關鍵字..."
+                                class="pl-9 p-2 border border-gray-300 rounded-lg w-48 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                             <i class="fa-solid fa-search absolute left-3 top-2.5 text-gray-400 text-xs"></i>
                         </div>
                         <div class="h-6 w-px bg-gray-300 mx-1 hidden md:block"></div>
-                        <select id="sort-select" onchange="currentSort=this.value; renderBookings()" class="p-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500">
+                        <select id="sort-select" onchange="currentSort=this.value; renderBookings()"
+                            class="p-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500">
                             <option value="date-desc">日期新→舊</option>
                             <option value="date-asc">日期舊→新</option>
                             <option value="status">狀態優先</option>
                         </select>
-                        <button onclick="openBookingModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 shadow-md transition transform active:scale-95 flex items-center text-sm font-bold">
+                        <button onclick="openBookingModal()"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 shadow-md transition transform active:scale-95 flex items-center text-sm font-bold">
                             <i class="fa-solid fa-plus mr-1"></i> 新增
                         </button>
                     </div>
@@ -186,28 +215,34 @@
                             </tr>
                         </thead>
                         <tbody id="booking-table-body" class="divide-y divide-gray-100">
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>
 
             <div id="tab-reports" class="hidden">
-                 <button onclick="switchTab('dashboard')" class="mb-4 text-gray-500 hover:text-blue-600 flex items-center text-sm transition"><i class="fa-solid fa-arrow-left mr-1"></i> 回儀表板</button>
-                 
-                 <div class="flex flex-wrap justify-between items-center mb-6 mt-2 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                <button onclick="switchTab('dashboard')"
+                    class="mb-4 text-gray-500 hover:text-blue-600 flex items-center text-sm transition"><i
+                        class="fa-solid fa-arrow-left mr-1"></i> 回儀表板</button>
+
+                <div
+                    class="flex flex-wrap justify-between items-center mb-6 mt-2 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                     <div class="flex items-center gap-4 flex-wrap">
-                        <h2 class="text-xl font-bold text-gray-800"><i class="fa-solid fa-chart-pie mr-2 text-indigo-600"></i> 營運報表中心</h2>
+                        <h2 class="text-xl font-bold text-gray-800"><i
+                                class="fa-solid fa-chart-pie mr-2 text-indigo-600"></i> 營運報表中心</h2>
                         <div class="h-6 w-px bg-gray-300 hidden md:block"></div>
-                        
+
                         <!-- Mode Selector -->
-                        <select id="report-mode" onchange="toggleReportMode()" class="border-gray-300 border rounded-md p-2 text-sm focus:ring-indigo-500 focus:border-indigo-500 font-bold text-indigo-700 bg-indigo-50">
+                        <select id="report-mode" onchange="toggleReportMode()"
+                            class="border-gray-300 border rounded-md p-2 text-sm focus:ring-indigo-500 focus:border-indigo-500 font-bold text-indigo-700 bg-indigo-50">
                             <option value="year">📅 依年度檢視</option>
                             <option value="custom">🛠 自訂區間</option>
                         </select>
 
                         <!-- Year Mode UI -->
                         <span id="report-mode-year" class="flex items-center gap-2">
-                            <select id="report-year" onchange="loadReports()" class="border-gray-300 border rounded-md p-2 text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                            <select id="report-year" onchange="loadReports()"
+                                class="border-gray-300 border rounded-md p-2 text-sm focus:ring-indigo-500 focus:border-indigo-500">
                                 <!-- JS populated years -->
                             </select>
                         </span>
@@ -217,10 +252,13 @@
                             <input type="date" id="report-start" class="border p-2 rounded text-sm w-32">
                             <span class="text-gray-400">~</span>
                             <input type="date" id="report-end" class="border p-2 rounded text-sm w-32">
-                            <button onclick="loadReports()" class="bg-indigo-600 text-white px-3 py-2 rounded hover:bg-indigo-700 transition"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            <button onclick="loadReports()"
+                                class="bg-indigo-600 text-white px-3 py-2 rounded hover:bg-indigo-700 transition"><i
+                                    class="fa-solid fa-magnifying-glass"></i></button>
                         </span>
                     </div>
-                    <button onclick="exportToCSV()" class="mt-2 md:mt-0 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 shadow flex items-center text-sm font-bold transition">
+                    <button onclick="exportToCSV()"
+                        class="mt-2 md:mt-0 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 shadow flex items-center text-sm font-bold transition">
                         <i class="fa-solid fa-file-excel mr-2"></i> 匯出 CSV 報表
                     </button>
                 </div>
@@ -260,7 +298,8 @@
                             </div>
                         </div>
                         <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                            <h3 class="text-lg font-bold text-gray-700 mb-4 border-l-4 border-teal-500 pl-3">邀約縣市排行 (Top 10)</h3>
+                            <h3 class="text-lg font-bold text-gray-700 mb-4 border-l-4 border-teal-500 pl-3">邀約縣市排行 (Top
+                                10)</h3>
                             <div class="relative h-64 w-full">
                                 <canvas id="cityChart"></canvas>
                             </div>
@@ -270,10 +309,13 @@
             </div>
 
             <div id="tab-courses" class="hidden">
-                 <button onclick="switchTab('dashboard')" class="mb-4 text-gray-500 hover:text-blue-600 flex items-center text-sm transition"><i class="fa-solid fa-arrow-left mr-1"></i> 回儀表板</button>
-                 <div class="flex justify-between items-center mb-6 mt-2">
+                <button onclick="switchTab('dashboard')"
+                    class="mb-4 text-gray-500 hover:text-blue-600 flex items-center text-sm transition"><i
+                        class="fa-solid fa-arrow-left mr-1"></i> 回儀表板</button>
+                <div class="flex justify-between items-center mb-6 mt-2">
                     <h2 class="text-xl font-bold">目前上架課程</h2>
-                    <button onclick="openCourseModal()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 shadow">
+                    <button onclick="openCourseModal()"
+                        class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 shadow">
                         <i class="fa-solid fa-plus"></i> 新增課程
                     </button>
                 </div>
@@ -301,12 +343,13 @@
         <div class="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div class="p-4 bg-blue-600 text-white flex justify-between items-center sticky top-0">
                 <h3 class="font-bold" id="modal-title">新增/編輯課程邀約</h3>
-                <button onclick="closeBookingModal()" class="text-white hover:text-gray-200"><i class="fa-solid fa-times"></i></button>
+                <button onclick="closeBookingModal()" class="text-white hover:text-gray-200"><i
+                        class="fa-solid fa-times"></i></button>
             </div>
             <div class="p-6">
                 <form id="adminBookingForm" class="space-y-4">
                     <input type="hidden" name="docId">
-                    
+
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-bold text-gray-700">日期</label>
@@ -323,18 +366,20 @@
                     </div>
 
                     <div>
-                         <label class="block text-sm font-bold text-gray-700">工作性質</label>
-                         <div class="flex gap-2">
-                             <select name="type" id="workTypeSelect" class="w-full border p-2 rounded" onchange="toggleCustomWorkType()">
-                                 <option value="邀請">邀請</option>
-                                 <option value="自辦">自辦</option>
-                                 <option value="合作">合作</option>
-                                 <option value="長期顧問">長期顧問</option>
-                                 <option value="固定直播">固定直播</option>
-                                 <option value="自訂">自訂</option>
-                             </select>
-                             <input type="text" id="customWorkType" class="w-full border p-2 rounded hidden" placeholder="輸入自訂性質">
-                         </div>
+                        <label class="block text-sm font-bold text-gray-700">工作性質</label>
+                        <div class="flex gap-2">
+                            <select name="type" id="workTypeSelect" class="w-full border p-2 rounded"
+                                onchange="toggleCustomWorkType()">
+                                <option value="邀請">邀請</option>
+                                <option value="自辦">自辦</option>
+                                <option value="合作">合作</option>
+                                <option value="長期顧問">長期顧問</option>
+                                <option value="固定直播">固定直播</option>
+                                <option value="自訂">自訂</option>
+                            </select>
+                            <input type="text" id="customWorkType" class="w-full border p-2 rounded hidden"
+                                placeholder="輸入自訂性質">
+                        </div>
                     </div>
 
                     <div>
@@ -347,12 +392,12 @@
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                             <label class="block text-sm font-bold text-gray-700">邀請單位/服務對象</label>
-                             <input type="text" name="orgName" class="w-full border p-2 rounded">
+                            <label class="block text-sm font-bold text-gray-700">邀請單位/服務對象</label>
+                            <input type="text" name="orgName" class="w-full border p-2 rounded">
                         </div>
                         <div>
-                             <label class="block text-sm font-bold text-gray-700">執行縣市/平台</label>
-                             <select name="city" class="w-full border p-2 rounded">
+                            <label class="block text-sm font-bold text-gray-700">執行縣市/平台</label>
+                            <select name="city" class="w-full border p-2 rounded">
                                 <option value="">請選擇縣市/平台</option>
                                 <option value="線上/直播">線上/直播</option>
                                 <option value="基隆市">基隆市</option>
@@ -377,45 +422,53 @@
                                 <option value="澎湖縣">澎湖縣</option>
                                 <option value="金門縣">金門縣</option>
                                 <option value="連江縣">連江縣</option>
-                             </select>
+                            </select>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                             <label class="block text-sm font-bold text-gray-700">聯絡人姓名 (邀請人)</label>
-                             <input type="text" name="contactName" class="w-full border p-2 rounded">
+                            <label class="block text-sm font-bold text-gray-700">聯絡人姓名 (邀請人)</label>
+                            <input type="text" name="contactName" class="w-full border p-2 rounded">
                         </div>
                         <div>
-                             <label class="block text-sm font-bold text-gray-700">聯絡電話</label>
-                             <input type="text" name="contactPhone" class="w-full border p-2 rounded">
+                            <label class="block text-sm font-bold text-gray-700">聯絡電話</label>
+                            <input type="text" name="contactPhone" class="w-full border p-2 rounded">
                         </div>
                     </div>
-                    
+
                     <div>
-                         <label class="block text-sm font-bold text-gray-700">聯絡 Email</label>
-                         <input type="email" name="contactEmail" class="w-full border p-2 rounded">
+                        <label class="block text-sm font-bold text-gray-700">聯絡 Email</label>
+                        <input type="email" name="contactEmail" class="w-full border p-2 rounded">
                     </div>
 
                     <div class="bg-blue-50 p-4 rounded border border-blue-100">
                         <h4 class="text-blue-800 font-bold mb-2"><i class="fa-solid fa-dollar-sign"></i> 財務與核銷</h4>
                         <div class="grid grid-cols-3 gap-4 mb-2">
-                             <div>
-                                 <label class="text-xs">費用類別</label>
-                                 <select name="feeType" class="w-full border p-1 rounded bg-white"><option>鐘點費</option><option>演講費</option><option>顧問費</option><option>車馬費</option></select>
-                             </div>
-                             <div>
-                                 <label class="text-xs">講師費用/hr (或單次)</label>
-                                 <input type="number" name="lecturerFee" class="w-full border p-1 rounded">
-                             </div>
-                             <div>
-                                 <label class="text-xs">付款單位</label>
-                                 <input type="text" name="payerName" class="w-full border p-1 rounded" placeholder="預設同邀請單位">
-                             </div>
+                            <div>
+                                <label class="text-xs">費用類別</label>
+                                <select name="feeType" class="w-full border p-1 rounded bg-white">
+                                    <option>鐘點費</option>
+                                    <option>演講費</option>
+                                    <option>顧問費</option>
+                                    <option>車馬費</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs">講師費用/hr (或單次)</label>
+                                <input type="number" name="lecturerFee" class="w-full border p-1 rounded">
+                            </div>
+                            <div>
+                                <label class="text-xs">付款單位</label>
+                                <input type="text" name="payerName" class="w-full border p-1 rounded"
+                                    placeholder="預設同邀請單位">
+                            </div>
                         </div>
                         <div class="flex items-center space-x-4 mt-2">
-                            <label class="flex items-center text-sm"><input type="checkbox" name="receiptSent" class="mr-1"> 領據已寄送/簽收</label>
-                            <label class="flex items-center text-sm"><input type="checkbox" name="paymentReceived" class="mr-1"> 款項已核對入帳</label>
+                            <label class="flex items-center text-sm"><input type="checkbox" name="receiptSent"
+                                    class="mr-1"> 領據已寄送/簽收</label>
+                            <label class="flex items-center text-sm"><input type="checkbox" name="paymentReceived"
+                                    class="mr-1"> 款項已核對入帳</label>
                         </div>
                     </div>
 
@@ -436,11 +489,13 @@
 
                     <!-- Recurring Section (Only for New Bookings) -->
                     <div id="recurrence-section" class="bg-indigo-50 p-4 rounded border border-indigo-100 mt-2">
-                        <h4 class="text-indigo-800 font-bold mb-2"><i class="fa-solid fa-repeat text-indigo-500"></i> 重複設定 (批次建立)</h4>
+                        <h4 class="text-indigo-800 font-bold mb-2"><i class="fa-solid fa-repeat text-indigo-500"></i>
+                            重複設定 (批次建立)</h4>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="text-xs font-bold text-indigo-700">重複頻率</label>
-                                <select name="recurringType" id="recurringType" onchange="toggleRecurringDate()" class="w-full border p-1 rounded bg-white">
+                                <select name="recurringType" id="recurringType" onchange="toggleRecurringDate()"
+                                    class="w-full border p-1 rounded bg-white">
                                     <option value="none">不重複</option>
                                     <option value="weekly">每週 (Weekly)</option>
                                     <option value="biweekly">每隔週 (Bi-weekly)</option>
@@ -449,7 +504,8 @@
                             </div>
                             <div id="recurringEndDateContainer" class="hidden">
                                 <label class="text-xs font-bold text-indigo-700">結束日期</label>
-                                <input type="date" name="recurringEndDate" id="recurringEndDate" class="w-full border p-1 rounded">
+                                <input type="date" name="recurringEndDate" id="recurringEndDate"
+                                    class="w-full border p-1 rounded">
                             </div>
                         </div>
                         <p class="text-[10px] text-indigo-400 mt-2">※ 系統將自動根據起始日期與頻率，產生多筆獨立的預約記錄。</p>
@@ -458,64 +514,83 @@
             </div>
             <div class="p-4 border-t flex justify-end space-x-2">
                 <button onclick="closeBookingModal()" class="px-4 py-2 border rounded hover:bg-gray-100">取消</button>
-                <button onclick="saveBooking()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">儲存資料</button>
+                <button onclick="saveBooking()"
+                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">儲存資料</button>
             </div>
         </div>
     </div>
 
     <div id="course-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
         <div class="bg-white rounded-lg w-full max-w-lg">
-             <div class="p-4 bg-indigo-600 text-white font-bold">新增/編輯課程</div>
-             <div class="p-6 space-y-4">
-                 <form id="courseForm" class="space-y-4">
+            <div class="p-4 bg-indigo-600 text-white font-bold">新增/編輯課程</div>
+            <div class="p-6 space-y-4">
+                <form id="courseForm" class="space-y-4">
                     <input type="hidden" name="courseId">
-                    
+
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">課程名稱 <span class="text-xs text-gray-500 font-normal">(請輸入完整的課程標題)</span></label>
-                        <input type="text" name="title" class="w-full border p-2 rounded focus:ring-2 focus:ring-indigo-500 outline-none" required>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">課程名稱 <span
+                                class="text-xs text-gray-500 font-normal">(請輸入完整的課程標題)</span></label>
+                        <input type="text" name="title"
+                            class="w-full border p-2 rounded focus:ring-2 focus:ring-indigo-500 outline-none" required>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">課程簡介 <span class="text-xs text-gray-500 font-normal">(請簡述課程內容與目標)</span></label>
-                        <textarea name="description" class="w-full border p-2 rounded h-24 focus:ring-2 focus:ring-indigo-500 outline-none" required></textarea>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">課程簡介 <span
+                                class="text-xs text-gray-500 font-normal">(請簡述課程內容與目標)</span></label>
+                        <textarea name="description"
+                            class="w-full border p-2 rounded h-24 focus:ring-2 focus:ring-indigo-500 outline-none"
+                            required></textarea>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">備註說明 <span class="text-xs text-gray-500 font-normal">(例如：上課地點、有無廣播設備、學員需要帶載具等等)</span></label>
-                        <textarea name="requirements" class="w-full border p-2 rounded h-20 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="輸入此課程的特殊需求或注意事項..."></textarea>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">備註說明 <span
+                                class="text-xs text-gray-500 font-normal">(例如：上課地點、有無廣播設備、學員需要帶載具等等)</span></label>
+                        <textarea name="requirements"
+                            class="w-full border p-2 rounded h-20 focus:ring-2 focus:ring-indigo-500 outline-none"
+                            placeholder="輸入此課程的特殊需求或注意事項..."></textarea>
                     </div>
-                    
+
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-1">課程時數</label>
-                            <select name="durationSelect" id="durationSelect" class="w-full border p-2 rounded bg-white" onchange="toggleCustomDuration()">
+                            <select name="durationSelect" id="durationSelect" class="w-full border p-2 rounded bg-white"
+                                onchange="toggleCustomDuration()">
                                 <option value="3小時">3小時</option>
                                 <option value="6小時">6小時</option>
                                 <option value="自訂">自訂</option>
                             </select>
-                            <input type="text" id="customDuration" name="customDuration" placeholder="輸入時數 (例: 2.5小時)" class="w-full border p-2 rounded mt-2 hidden">
+                            <input type="text" id="customDuration" name="customDuration" placeholder="輸入時數 (例: 2.5小時)"
+                                class="w-full border p-2 rounded mt-2 hidden">
                         </div>
-                        
+
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-1">課程類別</label>
-                             <select name="categorySelect" id="categorySelect" class="w-full border p-2 rounded bg-white" onchange="toggleCustomCategory()">
+                            <select name="categorySelect" id="categorySelect" class="w-full border p-2 rounded bg-white"
+                                onchange="toggleCustomCategory()">
                                 <option value="初階">初階</option>
                                 <option value="進階">進階</option>
                                 <option value="自訂">自訂</option>
                             </select>
-                            <input type="text" id="customCategory" name="customCategory" placeholder="輸入類別 (例: 工作坊)" class="w-full border p-2 rounded mt-2 hidden">
+                            <input type="text" id="customCategory" name="customCategory" placeholder="輸入類別 (例: 工作坊)"
+                                class="w-full border p-2 rounded mt-2 hidden">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">課程標籤 <span class="text-xs text-gray-500 font-normal">(選填，以逗號分隔，如：AI, 實作)</span></label>
-                        <input type="text" name="tags" placeholder="例如：AI教學, 實作工作坊" class="w-full border p-2 rounded focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">課程標籤 <span
+                                class="text-xs text-gray-500 font-normal">(選填，以逗號分隔，如：AI, 實作)</span></label>
+                        <input type="text" name="tags" placeholder="例如：AI教學, 實作工作坊"
+                            class="w-full border p-2 rounded focus:ring-2 focus:ring-indigo-500 outline-none">
                     </div>
 
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">課程封面圖片 <span class="text-xs text-gray-500 font-normal">(支援 JPG, PNG 格式)</span></label>
-                        <div class="border-2 border-dashed border-gray-300 rounded p-4 text-center hover:bg-gray-50 transition cursor-pointer relative">
-                            <input type="file" id="courseImageFile" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="handleImageUpload(this)">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">課程封面圖片 <span
+                                class="text-xs text-gray-500 font-normal">(支援 JPG, PNG 格式)</span></label>
+                        <div
+                            class="border-2 border-dashed border-gray-300 rounded p-4 text-center hover:bg-gray-50 transition cursor-pointer relative">
+                            <input type="file" id="courseImageFile"
+                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                onchange="handleImageUpload(this)">
                             <div class="text-gray-500">
                                 <i class="fa-solid fa-cloud-upload-alt text-2xl mb-2"></i>
                                 <p class="text-sm">點擊上傳或拖曳圖片至此</p>
@@ -524,24 +599,30 @@
                         <input type="hidden" name="imageUrl" id="courseImageUrl">
                         <div id="imagePreview" class="hidden mt-4 relative group w-32 mx-auto">
                             <img src="" alt="Preview" class="w-32 h-32 object-cover rounded shadow-md">
-                            <button type="button" onclick="clearImage()" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center shadow-sm hover:bg-red-600"><i class="fa-solid fa-times text-xs"></i></button>
+                            <button type="button" onclick="clearImage()"
+                                class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center shadow-sm hover:bg-red-600"><i
+                                    class="fa-solid fa-times text-xs"></i></button>
                         </div>
                     </div>
-                 </form>
-             </div>
-             <div class="p-4 border-t flex justify-end gap-2">
-                 <button onclick="document.getElementById('course-modal').classList.add('hidden')" class="px-4 py-2 border rounded">取消</button>
-                 <button onclick="saveCourse()" class="px-4 py-2 bg-indigo-600 text-white rounded">儲存</button>
-             </div>
+                </form>
+            </div>
+            <div class="p-4 border-t flex justify-end gap-2">
+                <button onclick="document.getElementById('course-modal').classList.add('hidden')"
+                    class="px-4 py-2 border rounded">取消</button>
+                <button onclick="saveCourse()" class="px-4 py-2 bg-indigo-600 text-white rounded">儲存</button>
+            </div>
         </div>
     </div>
 
     <!-- Detail Modal -->
     <div id="detail-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
         <div class="bg-white rounded-xl w-full max-w-4xl max-h-[85vh] flex flex-col shadow-2xl m-4">
-            <div id="detail-modal-header" class="p-5 bg-gray-800 text-white rounded-t-xl flex justify-between items-center shrink-0">
+            <div id="detail-modal-header"
+                class="p-5 bg-gray-800 text-white rounded-t-xl flex justify-between items-center shrink-0">
                 <h3 class="text-xl font-bold" id="detail-modal-title">詳細資料</h3>
-                <button onclick="document.getElementById('detail-modal').classList.add('hidden'); document.getElementById('detail-modal').classList.remove('flex')" class="text-gray-400 hover:text-white transition">
+                <button
+                    onclick="document.getElementById('detail-modal').classList.add('hidden'); document.getElementById('detail-modal').classList.remove('flex')"
+                    class="text-gray-400 hover:text-white transition">
                     <i class="fa-solid fa-times text-xl"></i>
                 </button>
             </div>
@@ -549,1202 +630,14 @@
                 <!-- Content injected via JS -->
             </div>
             <div class="p-4 border-t bg-gray-50 rounded-b-xl flex justify-end shrink-0">
-                <button onclick="document.getElementById('detail-modal').classList.add('hidden'); document.getElementById('detail-modal').classList.remove('flex')" class="px-6 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 font-medium">關閉</button>
+                <button
+                    onclick="document.getElementById('detail-modal').classList.add('hidden'); document.getElementById('detail-modal').classList.remove('flex')"
+                    class="px-6 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 font-medium">關閉</button>
             </div>
         </div>
     </div>
 
-    <script>
-        // --- AUTH ---
-        auth.onAuthStateChanged(user => {
-            if(user) {
-                document.getElementById('login-modal').classList.add('hidden');
-                document.getElementById('admin-dashboard').classList.remove('hidden');
-                switchTab('dashboard'); // Default to dashboard
-                loadBookings();
-                loadAdminCourses();
-            } else {
-                document.getElementById('login-modal').classList.remove('hidden');
-                document.getElementById('admin-dashboard').classList.add('hidden');
-            }
-        });
-
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('adminEmail').value;
-            const pass = document.getElementById('adminPass').value;
-            auth.signInWithEmailAndPassword(email, pass).catch(err => alert("登入失敗: " + err.message));
-        });
-
-        function logout() { auth.signOut(); }
-
-        // --- TABS ---
-        function switchTab(tab) {
-            document.getElementById('tab-dashboard').classList.add('hidden');
-            document.getElementById('tab-bookings').classList.add('hidden');
-            document.getElementById('tab-courses').classList.add('hidden');
-            document.getElementById('tab-reports').classList.add('hidden'); // Hide Reports
-            
-            document.getElementById(`tab-${tab}`).classList.remove('hidden');
-            
-            if (tab === 'dashboard') loadDashboard();
-            if (tab === 'bookings') loadBookings();
-            if (tab === 'courses') loadAdminCourses();
-            if (tab === 'reports') initReports(); // Init Reports
-        }
-
-        // --- DASHBOARD LOGIC ---
-        function loadDashboard() {
-            const today = new Date();
-            today.setHours(0,0,0,0); // Clear time for comparison
-            
-            const currentMonth = today.getMonth(); // 0-11
-            const currentYear = today.getFullYear();
-            
-            const thirtyDaysLater = new Date(today);
-            thirtyDaysLater.setDate(today.getDate() + 30);
-
-            db.collection('bookings').orderBy('date', 'asc').onSnapshot(snap => {
-                let monthIncome = 0;
-                let pendingCount = 0;
-                let upcomingCount = 0;
-                let unpaidAmount = 0;
-                
-                let pendingHtml = '';
-                let scheduleHtml = '';
-
-                // For schedule, limit to first 5 upcoming items
-                let scheduleItems = [];
-
-                snap.forEach(doc => {
-                    const data = doc.data();
-                    const bookingDate = new Date(data.date);
-                    // Reset time part of bookingDate to ensure accurate date comparison
-                    bookingDate.setHours(0,0,0,0);
-
-                    // Skip cancelled
-                    if (data.status === 'cancelled') return;
-
-                    const fee = (parseInt(data.lecturerFee) || 0) * parseTimeSlotForHours(data.timeSlot);
-                    
-                    // 1. Income (Current Month)
-                    // Note: getMonth() is 0-indexed.
-                    if (bookingDate.getMonth() === currentMonth && 
-                        bookingDate.getFullYear() === currentYear) {
-                        monthIncome += fee;
-                    }
-
-                    // 2. Pending Count & List construction
-                    if (data.status === 'pending') {
-                        pendingCount++;
-                        pendingHtml += `
-                        <div class="p-4 flex justify-between items-center hover:bg-gray-50 transition border-b border-gray-50 last:border-0">
-                            <div>
-                                <div class="font-bold text-gray-800">${data.orgName || '未填寫單位'}</div>
-                                <div class="text-xs text-gray-500"><i class="fa-regular fa-clock"></i> ${data.date} | ${data.courseName}</div>
-                            </div>
-                            <button onclick="editBooking('${doc.id}')" class="text-xs bg-amber-100 text-amber-700 px-3 py-1 rounded-full hover:bg-amber-200 shadow-sm transition">
-                                <i class="fa-solid fa-pen"></i> 審核
-                            </button>
-                        </div>`;
-                    }
-
-                    // 3. Upcoming (Next 30 Days) & Schedule List
-                    // Check if date is >= today AND <= 30 days later
-                    if (bookingDate >= today && bookingDate <= thirtyDaysLater) {
-                        upcomingCount++;
-                        scheduleItems.push(data);
-                    }
-
-                    // 4. Unpaid (Confirmed/Completed but not paid)
-                    // Exclude pending ones from unpaid calculation? Usually yes, until confirmed.
-                    // Let's assume only 'confirmed' or 'completed' count as 'unpaid' revenue risk.
-                    if ((data.status === 'confirmed' || data.status === 'completed') && !data.paymentReceived) {
-                        unpaidAmount += fee;
-                    }
-                });
-
-                // Sort schedule items by date
-                scheduleItems.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-                // Generate Schedule HTML (Top 5)
-                if (scheduleItems.length > 0) {
-                    scheduleItems.slice(0, 5).forEach(item => {
-                        scheduleHtml += `
-                        <div class="flex gap-4 mb-6 last:mb-0 relative">
-                            <div class="flex flex-col items-center">
-                                <div class="w-3 h-3 bg-blue-500 rounded-full z-10 ring-4 ring-white"></div>
-                                <div class="w-0.5 bg-gray-200 absolute top-3 bottom-[-24px] last:hidden"></div>
-                            </div>
-                            <div class="-mt-1.5 flex-1">
-                                <div class="text-sm font-bold text-gray-800 flex justify-between">
-                                    <span>${item.date}</span>
-                                    <span class="text-xs font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">${item.timeSlot}</span>
-                                </div>
-                                <div class="text-sm text-blue-600 font-medium mt-1">${item.courseName}</div>
-                                <div class="text-xs text-gray-400 mt-1 flex items-center">
-                                    <i class="fa-solid fa-map-pin mr-1"></i> ${item.city || '無地點'} - ${item.orgName || '自辦'}</div>
-                            </div>
-                        </div>`;
-                    });
-                }
-
-                // Update DOM elements
-                const incomeEl = document.getElementById('dash-income');
-                if(incomeEl) incomeEl.innerText = `$${monthIncome.toLocaleString()}`;
-                
-                const pendingEl = document.getElementById('dash-pending');
-                if(pendingEl) pendingEl.innerText = pendingCount;
-                
-                const upcomingEl = document.getElementById('dash-upcoming');
-                if(upcomingEl) upcomingEl.innerText = upcomingCount;
-                
-                const unpaidEl = document.getElementById('dash-unpaid');
-                if(unpaidEl) unpaidEl.innerText = `$${unpaidAmount.toLocaleString()}`;
-                
-                const pendingListEl = document.getElementById('dash-pending-list');
-                if(pendingListEl) pendingListEl.innerHTML = pendingHtml || '<div class="p-8 text-center text-gray-400 flex flex-col items-center"><i class="fa-solid fa-clipboard-check text-4xl mb-2 text-gray-200"></i><p>目前沒有待確認的邀約</p></div>';
-                
-                const scheduleListEl = document.getElementById('dash-schedule-list');
-                if(scheduleListEl) scheduleListEl.innerHTML = scheduleHtml || '<div class="p-8 text-center text-gray-400 flex flex-col items-center"><i class="fa-regular fa-calendar-xmark text-4xl mb-2 text-gray-200"></i><p>近期沒有行程</p></div>';
-            });
-        }
-
-        // --- DASHBOARD DETAIL MODAL LOGIC ---
-        function showDashboardDetail(type) {
-            const modal = document.getElementById('detail-modal');
-            const titleEl = document.getElementById('detail-modal-title');
-            const contentEl = document.getElementById('detail-modal-content');
-            const headerEl = document.getElementById('detail-modal-header');
-            
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            contentEl.innerHTML = '<div class="text-center py-10"><i class="fa-solid fa-spinner fa-spin text-3xl text-gray-400"></i></div>';
-
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            const currentMonth = today.getMonth();
-            const currentYear = today.getFullYear();
-            const thirtyDaysLater = new Date(today);
-            thirtyDaysLater.setDate(today.getDate() + 30);
-
-            let filtered = [];
-            let html = '';
-            let title = '';
-            let headerClass = 'bg-gray-800'; // Default
-
-            // 1. Prepare Data
-            if (type === 'income') {
-                title = '本月收入明細 (預估)';
-                headerClass = 'bg-gradient-to-r from-emerald-600 to-teal-700';
-                filtered = bookingsData.filter(d => {
-                    const dDate = new Date(d.date); 
-                    dDate.setHours(0,0,0,0);
-                    return d.status !== 'cancelled' && 
-                           dDate.getMonth() === currentMonth && 
-                           dDate.getFullYear() === currentYear;
-                });
-                // Sort by date desc
-                filtered.sort((a,b) => new Date(b.date) - new Date(a.date));
-            } 
-            else if (type === 'pending') {
-                title = '待確認邀約清單';
-                headerClass = 'bg-gradient-to-r from-amber-500 to-orange-600';
-                filtered = bookingsData.filter(d => d.status === 'pending');
-                filtered.sort((a,b) => new Date(a.date) - new Date(b.date)); // Oldest first
-            }
-            else if (type === 'upcoming') {
-                title = '未來行程總覽';
-                headerClass = 'bg-gradient-to-r from-blue-600 to-indigo-700';
-                filtered = bookingsData.filter(d => {
-                    const dDate = new Date(d.date);
-                    dDate.setHours(0,0,0,0);
-                    return d.status !== 'cancelled' && dDate >= today;
-                });
-                filtered.sort((a,b) => new Date(a.date) - new Date(b.date)); // Nearest first
-            }
-            else if (type === 'unpaid') {
-                title = '未入帳款項追蹤';
-                headerClass = 'bg-gradient-to-r from-rose-600 to-pink-700';
-                filtered = bookingsData.filter(d => {
-                    return (d.status === 'confirmed' || d.status === 'completed') && !d.paymentReceived;
-                });
-                filtered.sort((a,b) => new Date(a.date) - new Date(b.date)); // Oldest unpaid first
-            }
-
-            // Update Header Style
-            headerEl.className = `p-5 text-white rounded-t-xl flex justify-between items-center shrink-0 ${headerClass}`;
-            titleEl.innerHTML = `<i class="fa-solid fa-list-ul mr-2"></i> ${title}`;
-
-            // 2. Generate HTML
-            if (filtered.length === 0) {
-                contentEl.innerHTML = `
-                    <div class="flex flex-col items-center justify-center py-12 text-gray-400">
-                        <i class="fa-regular fa-folder-open text-5xl mb-4 opacity-50"></i>
-                        <p class="text-lg">目前沒有相關資料</p>
-                    </div>`;
-                return;
-            }
-
-            // Summary (if applicable)
-            if (type === 'income' || type === 'unpaid') {
-                let total = 0;
-                filtered.forEach(d => {
-                    total += (parseInt(d.lecturerFee)||0) * parseTimeSlotForHours(d.timeSlot);
-                });
-                html += `
-                <div class="mb-6 bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center shadow-sm">
-                    <div class="flex items-center">
-                        <div class="bg-emerald-100 text-emerald-600 p-2 rounded mr-3">
-                            <i class="fa-solid fa-money-bill-wave"></i>
-                        </div>
-                        <span class="text-gray-600 font-bold text-lg">總金額合計：</span>
-                    </div>
-                    <span class="text-3xl font-bold text-gray-800">$${total.toLocaleString()}</span>
-                </div>`;
-            }
-
-            html += `<div class="overflow-x-auto"><table class="w-full text-left border-collapse">`;
-            
-            // Table Header
-            html += `
-                <thead class="bg-gray-50 border-b text-gray-500 text-sm uppercase">
-                    <tr>
-                        <th class="p-4">日期/時間</th>
-                        <th class="p-4">單位/課程</th>
-                        ${type !== 'schedule' ? '<th class="p-4">費用/狀態</th>' : ''}
-                        <th class="p-4 text-right">操作</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
-            `;
-
-            filtered.forEach(d => {
-                const fee = (parseInt(d.lecturerFee)||0) * parseTimeSlotForHours(d.timeSlot);
-                let actionBtn = `<button onclick="editBooking('${d.id}'); document.getElementById('detail-modal').classList.add('hidden')" class="text-blue-600 hover:bg-blue-50 px-3 py-1 rounded transition">查看詳情</button>`;
-                
-                // Specific Actions
-                if (type === 'unpaid') {
-                    actionBtn = `
-                    <button onclick="quickTogglePayment('${d.id}', true)" class="bg-green-100 text-green-700 hover:bg-green-200 px-3 py-1 rounded text-sm font-bold transition flex items-center ml-auto">
-                        <i class="fa-solid fa-check mr-1"></i> 註記已收款
-                    </button>`;
-                }
-                
-                let statusBadge = '';
-                 switch(d.status) {
-                    case 'pending': statusBadge = '<span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded">待確認</span>'; break;
-                    case 'confirmed': statusBadge = '<span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">已確認</span>'; break;
-                    case 'completed': statusBadge = '<span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">已完成</span>'; break;
-                    default: statusBadge = '<span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">'+d.status+'</span>';
-                }
-
-                html += `
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="p-4">
-                            <div class="font-bold text-gray-800">${d.date}</div>
-                            <div class="text-xs text-gray-500">${d.timeSlot}</div>
-                        </td>
-                        <td class="p-4">
-                            <div class="font-bold text-gray-800">${d.orgName || '自辦'}</div>
-                            <div class="text-sm text-blue-600">${d.courseName}</div>
-                            <div class="text-xs text-gray-400 mt-1"><i class="fa-solid fa-user"></i> ${d.contactName || '-'} | <i class="fa-solid fa-map-marker-alt"></i> ${d.city || '-'}</div>
-                        </td>
-                         ${type !== 'schedule' ? `
-                        <td class="p-4">
-                            <div class="font-bold text-gray-800">$${fee.toLocaleString()}</div>
-                            <div class="mt-1">${statusBadge}</div>
-                        </td>` : ''}
-                        <td class="p-4 text-right">
-                            ${actionBtn}
-                        </td>
-                    </tr>
-                `;
-            });
-
-            html += `</tbody></table></div>`;
-            contentEl.innerHTML = html;
-        }
-
-        async function quickTogglePayment(id, status) {
-            if(!confirm("確定將此筆款項標記為「已入帳」嗎？")) return;
-            try {
-                await db.collection('bookings').doc(id).update({ paymentReceived: status });
-                // Refresh modal content (find current type? simpler to just close or reload same type)
-                // For simplicity, we just reload the dashboard logic which updates 'bookingsData' via listener,
-                // but we might need to manually trigger a re-render of this modal if it's open.
-                // Since 'bookingsData' updates in real-time, we can just re-call showDashboardDetail if we knew the type.
-                // Let's just close it and let the user see the updated stats.
-                document.getElementById('detail-modal').classList.add('hidden');
-                document.getElementById('detail-modal').classList.remove('flex');
-            } catch(e) {
-                alert("更新失敗");
-            }
-        }
-
-        // --- BOOKING LOGIC ---
-        let bookingsData = [];
-        let currentSort = 'date-desc';
-        let currentSearch = '';
-
-        function loadBookings() {
-            // Listen to real-time updates
-            db.collection('bookings').orderBy('date', 'desc').onSnapshot(snap => {
-                bookingsData = [];
-                snap.forEach(doc => {
-                    bookingsData.push({ id: doc.id, ...doc.data() });
-                });
-                populateBookingFilters();
-                renderBookings();
-            });
-        }
-
-        function populateBookingFilters() {
-            const months = new Set();
-            const orgs = new Set();
-            const courses = new Set();
-
-            bookingsData.forEach(d => {
-                if(d.date) months.add(d.date.substring(0, 7)); // YYYY-MM
-                if(d.orgName) orgs.add(d.orgName);
-                if(d.courseName) courses.add(d.courseName);
-            });
-
-            // Helper to fill select
-            const fill = (id, set, label) => {
-                const sel = document.getElementById(id);
-                const currentVal = sel.value;
-                sel.innerHTML = `<option value="">${label}</option>`;
-                Array.from(set).sort().reverse().forEach(val => { // Sort desc for months/dates
-                    const opt = document.createElement('option');
-                    opt.value = val;
-                    opt.innerText = val;
-                    if(val === currentVal) opt.selected = true;
-                    sel.appendChild(opt);
-                });
-            };
-
-            fill('filter-month', months, '全部月份');
-            fill('filter-org', orgs, '全部單位');
-            fill('filter-course', courses, '全部課程');
-        }
-
-        function renderBookings() {
-            const tbody = document.getElementById('booking-table-body');
-            if(!tbody) return;
-            tbody.innerHTML = '';
-
-            const fMonth = document.getElementById('filter-month').value;
-            const fOrg = document.getElementById('filter-org').value;
-            const fCourse = document.getElementById('filter-course').value;
-
-            // 1. Filter
-            let filtered = bookingsData.filter(item => {
-                // Dropdown Filters
-                if(fMonth && (!item.date || !item.date.startsWith(fMonth))) return false;
-                if(fOrg && item.orgName !== fOrg) return false;
-                if(fCourse && item.courseName !== fCourse) return false;
-
-                // Text Search
-                if(!currentSearch) return true;
-                const s = currentSearch.toLowerCase();
-                return (item.orgName && item.orgName.toLowerCase().includes(s)) ||
-                       (item.date && item.date.includes(s)) ||
-                       (item.courseName && item.courseName.toLowerCase().includes(s)) ||
-                       (item.contactName && item.contactName.toLowerCase().includes(s));
-            });
-
-            // 2. Sort
-            filtered.sort((a, b) => {
-                if (currentSort === 'date-desc') return new Date(b.date) - new Date(a.date);
-                if (currentSort === 'date-asc') return new Date(a.date) - new Date(b.date);
-                if (currentSort === 'status') {
-                    const priority = { 'pending': 1, 'confirmed': 2, 'completed': 3, 'cancelled': 4 };
-                    const pA = priority[a.status] || 99;
-                    const pB = priority[b.status] || 99;
-                    // If filtering by status, secondary sort by date (desc)
-                    if (pA !== pB) return pA - pB;
-                    return new Date(b.date) - new Date(a.date);
-                }
-                return 0;
-            });
-
-            // 3. Render
-            if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="p-8 text-center text-gray-400">沒有符合的資料</td></tr>';
-                return;
-            }
-
-            filtered.forEach(data => {
-                const statusClass = data.paymentReceived ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800';
-                const statusText = data.paymentReceived ? '已入帳' : '未入帳';
-                
-                // Status Badge
-                let statusBadge = '';
-                switch(data.status) {
-                    case 'pending': statusBadge = '<span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded">待確認</span>'; break;
-                    case 'confirmed': statusBadge = '<span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">已確認</span>'; break;
-                    case 'completed': statusBadge = '<span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">已完成</span>'; break;
-                    case 'cancelled': statusBadge = '<span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">已取消</span>'; break;
-                    default: statusBadge = '<span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">未知</span>';
-                }
-
-                const feePerHr = data.lecturerFee || 0;
-                const calculatedHours = parseTimeSlotForHours(data.timeSlot);
-                const totalFee = feePerHr * calculatedHours;
-
-                const row = `
-                <tr class="hover:bg-gray-50 border-b">
-                    <td class="p-4">
-                        <div class="font-bold">${data.date}</div>
-                        <div class="text-sm text-gray-500">${data.timeSlot}</div>
-                        <div class="mt-1">${statusBadge}</div>
-                    </td>
-                    <td class="p-4">
-                        <div class="font-bold">${data.orgName || '自辦'}</div>
-                        <div class="text-sm text-gray-500"><i class="fa-solid fa-user"></i> ${data.contactName || '-'}</div>
-                    </td>
-                    <td class="p-4 text-sm">
-                        <div class="text-blue-600 font-medium">${data.courseName}</div>
-                        <div class="text-gray-500"><i class="fa-solid fa-map-marker-alt"></i> ${data.city || '-'}</div>
-                    </td>
-                    <td class="p-4">
-                        <div class="font-bold">$${isNaN(totalFee) ? 0 : totalFee}</div>
-                        <span class="text-xs px-2 py-1 rounded-full ${statusClass} mt-1 inline-block">${statusText}</span>
-                    </td>
-                    <td class="p-4 text-right space-x-2">
-                        <button onclick="editBooking('${data.id}')" class="text-blue-600 hover:underline"><i class="fa-solid fa-edit"></i> 編輯</button>
-                        <button onclick="deleteDoc('bookings','${data.id}')" class="text-red-600 hover:underline"><i class="fa-solid fa-trash"></i> 刪除</button>
-                    </td>
-                </tr>`;
-                tbody.innerHTML += row;
-            });
-        }
-
-        async function openBookingModal() {
-            const form = document.getElementById('adminBookingForm');
-            form.reset();
-            
-            // 強制清空隱藏的 ID 欄位，確保「新增」不會變成「覆蓋」
-            if (form.docId) form.docId.value = '';
-            
-            // 顯示重複設定區塊 (僅限新增)
-            document.getElementById('recurrence-section').classList.remove('hidden');
-            document.getElementById('recurringEndDateContainer').classList.add('hidden');
-
-            await loadCoursesForSelect(); // 等待課程選單載入完成
-            toggleCustomWorkType(); // Reset custom input visibility
-            document.getElementById('booking-modal').classList.remove('hidden');
-            document.getElementById('booking-modal').classList.add('flex');
-        }
-
-        function toggleRecurringDate() {
-            const type = document.getElementById('recurringType').value;
-            const container = document.getElementById('recurringEndDateContainer');
-            if (type !== 'none') {
-                container.classList.remove('hidden');
-            } else {
-                container.classList.add('hidden');
-            }
-        }
-
-        function closeBookingModal() {
-            document.getElementById('booking-modal').classList.add('hidden');
-            document.getElementById('booking-modal').classList.remove('flex');
-        }
-
-        function toggleCustomWorkType() {
-            const select = document.getElementById('workTypeSelect');
-            const customInput = document.getElementById('customWorkType');
-            if (select.value === '自訂') {
-                customInput.classList.remove('hidden');
-                customInput.required = true;
-            } else {
-                customInput.classList.add('hidden');
-                customInput.required = false;
-            }
-        }
-
-        async function loadCoursesForSelect() {
-            const select = document.getElementById('courseNameSelect');
-            // Keep the default option
-            select.innerHTML = '<option value="">請選擇課程...</option>';
-            
-            // Add Hardcoded Options (Non-course work)
-            const specialOptions = ['年度合約/顧問服務', '居久屋微醺夜', 'T++教育+年華'];
-            specialOptions.forEach(optText => {
-                const option = document.createElement('option');
-                option.value = optText;
-                option.textContent = `★ ${optText}`; 
-                option.classList.add('font-bold', 'text-blue-600');
-                select.appendChild(option);
-            });
-            
-            try {
-                const snap = await db.collection('courses').get();
-                snap.forEach(doc => {
-                    const data = doc.data();
-                    const option = document.createElement('option');
-                    option.value = data.title;
-                    option.textContent = data.title;
-                    select.appendChild(option);
-                });
-            } catch (e) {
-                console.error("Error loading courses:", e);
-            }
-        }
-
-        async function saveBooking() {
-            const form = document.getElementById('adminBookingForm');
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-            
-            // Handle Work Type
-            if (data.type === '自訂') {
-                const customType = document.getElementById('customWorkType').value;
-                if (customType) {
-                    data.type = customType; 
-                }
-            }
-
-            // Convert checkboxes
-            data.receiptSent = form.querySelector('[name=receiptSent]').checked;
-            data.paymentReceived = form.querySelector('[name=paymentReceived]').checked;
-            
-            // Check ID
-            const docId = data.docId; 
-            delete data.docId; // Don't save ID inside data
-
-            try {
-                if(docId) {
-                    // 1. 單筆更新模式
-                    await db.collection('bookings').doc(docId).update(data);
-                } else {
-                    // 2. 新增模式 (包含可能的批次建立)
-                    const recurringType = data.recurringType;
-                    const startDateStr = data.date;
-                    const endDateStr = data.recurringEndDate;
-
-                    // 移除不需要存入資料庫的重複設定欄位
-                    delete data.recurringType;
-                    delete data.recurringEndDate;
-
-                    if (recurringType === 'none' || !endDateStr) {
-                        // 單筆新增
-                        await db.collection('bookings').add(data);
-                    } else {
-                        // 批次建立
-                        let currentDate = new Date(startDateStr);
-                        const endDate = new Date(endDateStr);
-                        
-                        // 檢查起始日是否為月底 (例如 1/31)
-                        const startDay = currentDate.getDate();
-                        const daysInStartMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
-                        const isLastDay = startDay === daysInStartMonth;
-
-                        // 防止無限迴圈的安全機制 (最多一年)
-                        const maxDate = new Date(currentDate);
-                        maxDate.setFullYear(maxDate.getFullYear() + 1);
-
-                        const batchData = [];
-                        
-                        while (currentDate <= endDate && currentDate <= maxDate) {
-                            const dateStr = currentDate.toISOString().split('T')[0];
-                            batchData.push({
-                                ...data,
-                                date: dateStr
-                            });
-
-                            // 計算下一個日期
-                            if (recurringType === 'weekly') currentDate.setDate(currentDate.getDate() + 7);
-                            else if (recurringType === 'biweekly') currentDate.setDate(currentDate.getDate() + 14);
-                            else if (recurringType === 'monthly') {
-                                // 月底邏輯修正
-                                if (isLastDay) {
-                                    // 如果是月底，下個月也要鎖定在月底
-                                    // 先加一個月，設為該月1號
-                                    currentDate.setMonth(currentDate.getMonth() + 1, 1);
-                                    // 再設為該月最後一天 (下個月的第0天)
-                                    currentDate.setDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate());
-                                } else {
-                                    // 普通日期直接加月
-                                    currentDate.setMonth(currentDate.getMonth() + 1);
-                                }
-                            }
-                            else break;
-                        }
-
-                        if (batchData.length > 20 && !confirm(`系統即將批次建立 ${batchData.length} 筆資料，確定嗎？`)) {
-                            return;
-                        }
-
-                        // Firestore 無批次 add 的簡單寫法 (Promise.all)
-                        const promises = batchData.map(item => db.collection('bookings').add(item));
-                        await Promise.all(promises);
-                        alert(`成功批次建立 ${batchData.length} 筆工作行程！`);
-                    }
-                }
-                closeBookingModal();
-                loadDashboard(); // Ensure dashboard is refreshed
-            } catch(e) { alert("儲存失敗"); console.error(e); }
-        }
-
-        // --- COURSE LOGIC ---
-        function loadAdminCourses() {
-            db.collection('courses').onSnapshot(snap => {
-                const tbody = document.getElementById('course-table-body');
-                if(!tbody) return;
-                tbody.innerHTML = '';
-                snap.forEach(doc => {
-                    const data = doc.data();
-                    const row = `
-                    <tr class="hover:bg-gray-50">
-                        <td class="p-4 align-top">
-                            <div class="flex items-center space-x-3">
-                                ${data.image ? `<img src="${data.image}" class="w-10 h-10 rounded object-cover border">` : '<div class="w-10 h-10 rounded bg-gray-200 flex items-center justify-center text-gray-400"><i class="fa-solid fa-image"></i></div>'}
-                                <div class="font-bold text-gray-800">${data.title}</div>
-                            </div>
-                        </td>
-                        <td class="p-4 text-sm text-gray-600 align-top line-clamp-2">${data.description}</td>
-                        <td class="p-4 text-sm text-gray-600 align-top">${data.duration}</td>
-                        <td class="p-4 text-sm align-top">
-                            <span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded text-xs">${data.category}</span>
-                            ${data.tags && Array.isArray(data.tags) ? data.tags.map(tag => `<span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs ml-1">${tag}</span>`).join('') : ''}
-                        </td>
-                        <td class="p-4 text-right space-x-2 align-top">
-                             <button onclick="editCourse('${doc.id}')" class="text-blue-600 hover:text-blue-800 text-sm"><i class="fa-solid fa-edit"></i> 編輯</button>
-                             <button onclick="deleteDoc('courses', '${doc.id}')" class="text-red-500 hover:text-red-700 text-sm"><i class="fa-solid fa-trash"></i> 刪除</button>
-                        </td>
-                    </tr>`;
-                    tbody.innerHTML += row;
-                });
-            });
-        }
-        
-        function openCourseModal(id = null) {
-            const form = document.getElementById('courseForm');
-            form.reset();
-            
-            // 強制清空課程 ID，避免新增變成覆蓋
-            if (form.courseId) form.courseId.value = '';
-
-            // Reset complex fields
-            document.getElementById('courseImageUrl').value = '';
-            document.getElementById('imagePreview').classList.add('hidden');
-            
-            toggleCustomDuration();
-            toggleCustomCategory();
-            
-            document.getElementById('course-modal').classList.remove('hidden');
-            document.getElementById('course-modal').classList.add('flex');
-        }
-
-        function toggleCustomDuration() {
-            const select = document.getElementById('durationSelect');
-            const customInput = document.getElementById('customDuration');
-            if (select.value === '自訂') {
-                customInput.classList.remove('hidden');
-                customInput.required = true;
-            } else {
-                customInput.classList.add('hidden');
-                customInput.required = false;
-            }
-        }
-
-        function toggleCustomCategory() {
-            const select = document.getElementById('categorySelect');
-            const customInput = document.getElementById('customCategory');
-            if (select.value === '自訂') {
-                customInput.classList.remove('hidden');
-                customInput.required = true;
-            } else {
-                customInput.classList.add('hidden');
-                customInput.required = false;
-            }
-        }
-
-        function handleImageUpload(input) {
-            const file = input.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    
-                    const targetAspectRatio = 16 / 9;
-                    let sourceX = 0;
-                    let sourceY = 0;
-                    let sourceWidth = img.width;
-                    let sourceHeight = img.height;
-
-                    const originalAspectRatio = img.width / img.height;
-
-                    if (originalAspectRatio > targetAspectRatio) {
-                        // Original is wider, crop width
-                        sourceWidth = img.height * targetAspectRatio;
-                        sourceX = (img.width - sourceWidth) / 2;
-                    } else if (originalAspectRatio < targetAspectRatio) {
-                        // Original is taller, crop height
-                        sourceHeight = img.width / targetAspectRatio;
-                        sourceY = (img.height - sourceHeight) / 2;
-                    }
-
-                    // Max dimensions for the final 16:9 image
-                    const MAX_FINAL_WIDTH = 800;
-                    const MAX_FINAL_HEIGHT = 450; // 800 / 16 * 9
-
-                    canvas.width = MAX_FINAL_WIDTH;
-                    canvas.height = MAX_FINAL_HEIGHT;
-                    // Draw the cropped portion of the image onto the canvas, resized to fill the canvas
-                    ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, MAX_FINAL_WIDTH, MAX_FINAL_HEIGHT);
-
-                    // Compress to JPEG 0.7
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
-                    
-                    document.getElementById('imagePreview').classList.remove('hidden');
-                    document.getElementById('imagePreview').querySelector('img').src = dataUrl;
-                    document.getElementById('courseImageUrl').value = dataUrl; // Store optimized Base64
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function clearImage() {
-            document.getElementById('courseImageFile').value = '';
-            document.getElementById('courseImageUrl').value = '';
-            document.getElementById('imagePreview').classList.add('hidden');
-        }
-
-        async function saveCourse() {
-             const form = document.getElementById('courseForm');
-             
-             // Handle Duration
-             let duration = form.durationSelect.value;
-             if (duration === '自訂') {
-                 duration = form.customDuration.value;
-             }
-
-             // Handle Category
-             let category = form.categorySelect.value;
-             if (category === '自訂') {
-                 category = form.customCategory.value;
-             }
-
-             // Handle Tags
-             const tagsStr = form.tags.value;
-             const tags = tagsStr ? tagsStr.split(/[,，]/).map(t => t.trim()).filter(t => t) : [];
-
-             const data = {
-                 title: form.title.value,
-                 description: form.description.value,
-                 duration: duration,
-                 category: category,
-                 tags: tags,
-                 image: form.imageUrl.value,
-                 requirements: form.requirements.value
-             };
-             
-             const docId = form.courseId.value;
-
-             try {
-                if (docId) {
-                    await db.collection('courses').doc(docId).update(data);
-                } else {
-                    await db.collection('courses').add(data);
-                }
-                document.getElementById('course-modal').classList.add('hidden');
-             } catch(e) {
-                 console.error("Error saving course:", e);
-                 alert("儲存失敗");
-             }
-        }
-
-        window.editCourse = async function(id) {
-            const doc = await db.collection('courses').doc(id).get();
-            const data = doc.data();
-            const form = document.getElementById('courseForm');
-            
-            openCourseModal();
-            form.courseId.value = id;
-            form.title.value = data.title;
-            form.description.value = data.description;
-            form.requirements.value = data.requirements || '';
-            
-            // Handle Duration Edit Logic
-            const standardDurations = ['3小時', '6小時'];
-            if (standardDurations.includes(data.duration)) {
-                form.durationSelect.value = data.duration;
-            } else {
-                form.durationSelect.value = '自訂';
-                form.customDuration.value = data.duration;
-            }
-            toggleCustomDuration();
-
-            // Handle Category Edit Logic
-            const standardCategories = ['初階', '進階'];
-            if (standardCategories.includes(data.category)) {
-                form.categorySelect.value = data.category;
-            } else {
-                form.categorySelect.value = '自訂';
-                form.customCategory.value = data.category;
-            }
-            toggleCustomCategory();
-
-            // Handle Tags
-            if (data.tags && Array.isArray(data.tags)) {
-                form.tags.value = data.tags.join(', ');
-            } else {
-                form.tags.value = '';
-            }
-
-            // Handle Image
-            if (data.image) {
-                form.imageUrl.value = data.image;
-                document.getElementById('imagePreview').classList.remove('hidden');
-                document.getElementById('imagePreview').querySelector('img').src = data.image;
-            }
-        }
-
-        // --- REPORTS LOGIC ---
-        let revenueChartInstance = null;
-        let categoryChartInstance = null;
-        let cityChartInstance = null;
-
-        function initReports() {
-            // Populate Year Select
-            const yearSelect = document.getElementById('report-year');
-            const currentYear = new Date().getFullYear();
-            yearSelect.innerHTML = '';
-            for(let y = currentYear - 2; y <= currentYear + 1; y++) {
-                const opt = document.createElement('option');
-                opt.value = y;
-                opt.innerText = y + ' 年';
-                if(y === currentYear) opt.selected = true;
-                yearSelect.appendChild(opt);
-            }
-
-            // Init Custom Date Inputs (Default to This Month)
-            const today = new Date();
-            const firstDay = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0];
-            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0];
-            document.getElementById('report-start').value = firstDay;
-            document.getElementById('report-end').value = lastDay;
-
-            loadReports();
-        }
-
-        function toggleReportMode() {
-            const mode = document.getElementById('report-mode').value;
-            if (mode === 'year') {
-                document.getElementById('report-mode-year').classList.remove('hidden');
-                document.getElementById('report-mode-custom').classList.add('hidden');
-            } else {
-                document.getElementById('report-mode-year').classList.add('hidden');
-                document.getElementById('report-mode-custom').classList.remove('hidden');
-                document.getElementById('report-mode-custom').classList.add('flex');
-            }
-            loadReports(); // Reload data based on new mode
-        }
-
-        function loadReports() {
-            const mode = document.getElementById('report-mode').value;
-            let reportData = [];
-
-            if (mode === 'year') {
-                const selectedYear = parseInt(document.getElementById('report-year').value);
-                reportData = bookingsData.filter(d => {
-                    const date = new Date(d.date);
-                    return d.status !== 'cancelled' && date.getFullYear() === selectedYear;
-                });
-            } else {
-                const startStr = document.getElementById('report-start').value;
-                const endStr = document.getElementById('report-end').value;
-                if (!startStr || !endStr) return; // Wait for inputs
-                
-                const start = new Date(startStr);
-                const end = new Date(endStr);
-                
-                reportData = bookingsData.filter(d => {
-                    const date = new Date(d.date);
-                    return d.status !== 'cancelled' && date >= start && date <= end;
-                });
-            }
-
-            // 1. Aggregation
-            const monthlyRevenue = new Array(12).fill(0);
-            const categoryStats = {};
-            const cityStats = {};
-            
-            let totalRevenue = 0;
-            let totalCount = reportData.length;
-
-            reportData.forEach(d => {
-                const date = new Date(d.date);
-                const month = date.getMonth(); // 0-11
-                const fee = (parseInt(d.lecturerFee) || 0) * parseTimeSlotForHours(d.timeSlot);
-                
-                // Only count revenue for confirmed/completed (or maybe pending too as "forecast")
-                // Let's count all non-cancelled for "Forecast" report
-                monthlyRevenue[month] += fee;
-                totalRevenue += fee;
-
-                // Category
-                const cat = d.courseName || '未分類';
-                categoryStats[cat] = (categoryStats[cat] || 0) + 1;
-
-                // City
-                const city = d.city || '未填寫';
-                cityStats[city] = (cityStats[city] || 0) + 1;
-            });
-
-            // 2. Update Summary Cards
-            document.getElementById('report-total-revenue').innerText = '$' + totalRevenue.toLocaleString();
-            document.getElementById('report-total-count').innerText = totalCount;
-            const avg = totalCount > 0 ? Math.round(totalRevenue / totalCount) : 0;
-            document.getElementById('report-avg-revenue').innerText = '$' + avg.toLocaleString();
-
-            // 3. Render Charts
-            renderRevenueChart(monthlyRevenue);
-            renderCategoryChart(categoryStats);
-            renderCityChart(cityStats);
-        }
-
-        function renderRevenueChart(data) {
-            const ctx = document.getElementById('revenueChart').getContext('2d');
-            if(revenueChartInstance) revenueChartInstance.destroy();
-
-            revenueChartInstance = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-                    datasets: [{
-                        label: '月營收 (NT$)',
-                        data: data,
-                        backgroundColor: 'rgba(79, 70, 229, 0.6)', // Indigo-600
-                        borderColor: 'rgba(79, 70, 229, 1)',
-                        borderWidth: 1,
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { beginAtZero: true }
-                    },
-                    plugins: {
-                        legend: { display: false }
-                    }
-                }
-            });
-        }
-
-        function renderCategoryChart(stats) {
-            const ctx = document.getElementById('categoryChart').getContext('2d');
-            if(categoryChartInstance) categoryChartInstance.destroy();
-
-            // Sort and take Top 5
-            const sorted = Object.entries(stats).sort((a,b) => b[1] - a[1]);
-            let labels = [];
-            let data = [];
-            
-            if(sorted.length > 6) {
-                const top5 = sorted.slice(0, 5);
-                const others = sorted.slice(5).reduce((acc, curr) => acc + curr[1], 0);
-                labels = top5.map(i => i[0]);
-                data = top5.map(i => i[1]);
-                labels.push('其他');
-                data.push(others);
-            } else {
-                labels = sorted.map(i => i[0]);
-                data = sorted.map(i => i[1]);
-            }
-
-            categoryChartInstance = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: data,
-                        backgroundColor: [
-                            '#EC4899', '#8B5CF6', '#3B82F6', '#10B981', '#F59E0B', '#6B7280'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'right' }
-                    }
-                }
-            });
-        }
-
-        function renderCityChart(stats) {
-            const ctx = document.getElementById('cityChart').getContext('2d');
-            if(cityChartInstance) cityChartInstance.destroy();
-
-            // Sort Top 10
-            const sorted = Object.entries(stats).sort((a,b) => b[1] - a[1]).slice(0, 10);
-            
-            cityChartInstance = new Chart(ctx, {
-                type: 'bar',
-                indexAxis: 'y', // Horizontal
-                data: {
-                    labels: sorted.map(i => i[0]),
-                    datasets: [{
-                        label: '場次',
-                        data: sorted.map(i => i[1]),
-                        backgroundColor: 'rgba(20, 184, 166, 0.6)', // Teal-500
-                        borderColor: 'rgba(20, 184, 166, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    }
-                }
-            });
-        }
-
-        function exportToCSV() {
-            const mode = document.getElementById('report-mode').value;
-            let dataToExport = [];
-            let fileName = '報表.csv';
-
-            if (mode === 'year') {
-                const selectedYear = document.getElementById('report-year').value;
-                fileName = `課程營運報表_${selectedYear}.csv`;
-                dataToExport = bookingsData.filter(d => {
-                    const date = new Date(d.date);
-                    return d.status !== 'cancelled' && date.getFullYear() == selectedYear;
-                });
-            } else {
-                const startStr = document.getElementById('report-start').value;
-                const endStr = document.getElementById('report-end').value;
-                fileName = `課程營運報表_${startStr}_${endStr}.csv`;
-                const start = new Date(startStr);
-                const end = new Date(endStr);
-                dataToExport = bookingsData.filter(d => {
-                    const date = new Date(d.date);
-                    return d.status !== 'cancelled' && date >= start && date <= end;
-                });
-            }
-
-            if(dataToExport.length === 0) {
-                alert("該區間無資料可匯出");
-                return;
-            }
-
-            // Define Headers
-            const headers = ['日期', '時段', '課程名稱', '邀請單位', '聯絡人', '縣市', '講師費/hr', '預估總額', '狀態', '款項入帳'];
-            
-            // CSV Content with BOM for Excel Chinese support
-            let csvContent = "\uFEFF" + headers.join(",") + "\n";
-
-            dataToExport.forEach(d => {
-                const fee = d.lecturerFee || 0;
-                const total = fee * parseTimeSlotForHours(d.timeSlot);
-                const row = [
-                    d.date,
-                    d.timeSlot,
-                    `"${d.courseName}"`, // Quote strings with potential commas
-                    `"${d.orgName}"`,
-                    d.contactName,
-                    d.city,
-                    fee,
-                    total,
-                    d.status,
-                    d.paymentReceived ? '是' : '否'
-                ];
-                csvContent += row.join(",") + "\n";
-            });
-
-            // Trigger Download
-            const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", fileName);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        // --- UTILS ---
-        async function deleteDoc(col, id) {
-            if(confirm("確定要刪除嗎？")) {
-                await db.collection(col).doc(id).delete();
-                if(col === 'bookings') loadDashboard(); // Update stats
-            }
-        }
-        
-        // Helper to edit booking (Filling the form)
-        window.editBooking = async function(id) {
-             const doc = await db.collection('bookings').doc(id).get();
-             const data = doc.data();
-             const form = document.getElementById('adminBookingForm');
-             
-             await openBookingModal();
-             
-             // 編輯模式下隱藏重複設定區塊
-             document.getElementById('recurrence-section').classList.add('hidden');
-
-             // Must wait for courses to load before setting value, or set value after loading
-             await loadCoursesForSelect();
-
-             form.docId.value = id;
-             form.date.value = data.date;
-             form.timeSlot.value = data.timeSlot;
-             form.courseName.value = data.courseName;
-             form.orgName.value = data.orgName || '';
-             form.city.value = data.city || '';
-             // Use new field names
-             form.contactName.value = data.contactName || data.inviter || ''; // Fallback for old data
-             form.contactPhone.value = data.contactPhone || '';
-             form.contactEmail.value = data.contactEmail || '';
-             form.lecturerFee.value = data.lecturerFee || data.fee || 0; // Fallback
-             form.notes.value = data.notes || '';
-             
-             // Payer defaults to orgName if empty
-             form.payerName.value = data.payerName || data.orgName || '';
-
-             // Handle Work Type Logic for Edit
-             const workTypeSelect = document.getElementById('workTypeSelect');
-             const customWorkTypeInput = document.getElementById('customWorkType');
-             
-             // Check if the saved type is one of the standard options
-             const standardTypes = ['邀請', '自辦', '合作'];
-             if (!data.type || standardTypes.includes(data.type)) {
-                 workTypeSelect.value = data.type || '邀請';
-                 customWorkTypeInput.classList.add('hidden');
-             } else {
-                 customWorkTypeInput.value = data.type;
-                 customWorkTypeInput.classList.remove('hidden');
-             }
-
-             // Status field
-             form.status.value = data.status || 'pending';
-
-             // checkboxes
-             form.receiptSent.checked = data.receiptSent || false;
-             form.paymentReceived.checked = data.paymentReceived || false;
-        }
-
-        function parseTimeSlotForHours(timeSlotString) {
-            if (timeSlotString === "全天/不指定") return 1;
-            if (timeSlotString === "09:00-12:00" || timeSlotString === "13:30-16:30") {
-                return 3;
-            }
-            return 0; // Default or error case for unknown time slots
-        }
-    </script>
+    <script src="js/admin.js"></script>
 </body>
+
 </html>
