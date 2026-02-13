@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,33 +11,36 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
-        (function() {
+        (function () {
             // TODO: 請替換成您的 EmailJS Public Key
             emailjs.init("nMrt-hOJO87o-gCRM");
         })();
     </script>
-    <script src="config.js"></script>
+    <script src="js/config.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+
     <style>
-        .step-active { @apply border-green-500 text-green-600; }
-        .step-completed { @apply bg-green-500 text-white border-green-500; }
-        .step-line-active { @apply bg-green-500; }
+        /* Custom styles if needed */
     </style>
 </head>
+
 <body class="bg-gray-50 min-h-screen font-sans text-gray-800">
 
     <nav class="bg-gray-900 text-white p-4 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-2">
-                            <img src="images/Alianglogo.png" alt="丫亮笑長" class="h-10 w-10 p-1 rounded-lg bg-yellow-400 object-contain">                <div>
+                <img src="images/Alianglogo.png" alt="丫亮笑長"
+                    class="h-10 w-10 p-1 rounded-lg bg-yellow-400 object-contain">
+                <div>
                     <h1 class="text-xl font-bold">丫亮笑長練功坊預約助手</h1>
                     <p class="text-xs text-gray-400">預約與課程管理系統</p>
                 </div>
             </div>
             <div class="flex items-center space-x-4">
-                <a href="about.html" class="text-sm hover:text-yellow-400 transition"><i class="fa-solid fa-user-circle"></i> 關於講師</a>
-                <a href="portfolio.html" class="text-sm hover:text-yellow-400 transition"><i class="fa-solid fa-briefcase"></i> ㄚ亮笑長作品集</a>
+                <a href="about.html" class="text-sm hover:text-yellow-400 transition"><i
+                        class="fa-solid fa-user-circle"></i> 關於講師</a>
+                <a href="portfolio.html" class="text-sm hover:text-yellow-400 transition"><i
+                        class="fa-solid fa-briefcase"></i> ㄚ亮笑長作品集</a>
             </div>
         </div>
     </nav>
@@ -44,13 +48,17 @@
     <div class="container mx-auto px-4 py-8 max-w-4xl">
 
         <!-- Welcome Card -->
-        <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 mb-10 text-center border-t-8 border-yellow-400 relative overflow-hidden">
-            <div class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-yellow-100 rounded-full opacity-50 blur-3xl"></div>
-            <div class="absolute bottom-0 left-0 -ml-10 -mb-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-3xl"></div>
-            
+        <div
+            class="bg-white rounded-3xl shadow-xl p-6 md:p-8 mb-10 text-center border-t-8 border-yellow-400 relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-yellow-100 rounded-full opacity-50 blur-3xl">
+            </div>
+            <div class="absolute bottom-0 left-0 -ml-10 -mb-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 blur-3xl">
+            </div>
+
             <div class="flex flex-col md:flex-row items-center justify-center relative z-10">
-                <img src="images/Aliang.png" alt="丫亮笑長" class="w-32 h-32 md:w-40 md:h-40 object-contain mb-4 md:mb-0 md:mr-8 flex-shrink-0">
-                
+                <img src="images/Aliang.png" alt="丫亮笑長"
+                    class="w-32 h-32 md:w-40 md:h-40 object-contain mb-4 md:mb-0 md:mr-8 flex-shrink-0">
+
                 <div class="text-center md:text-left">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800">歡迎來到丫亮笑長練功坊</h2>
                     <p class="text-lg text-gray-600 mb-0 leading-normal">
@@ -58,25 +66,31 @@
                     </p>
                 </div>
             </div>
-            
+
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 mt-8 relative z-10">
-                <div class="flex items-center space-x-3 text-gray-700 font-bold bg-gray-50 border border-gray-100 px-4 py-2 rounded-full shadow-sm">
-                    <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-magnifying-glass-location"></i></div>
+                <div
+                    class="flex items-center space-x-3 text-gray-700 font-bold bg-gray-50 border border-gray-100 px-4 py-2 rounded-full shadow-sm">
+                    <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center"><i
+                            class="fa-solid fa-magnifying-glass-location"></i></div>
                     <span>線上即時查詢</span>
                 </div>
-                <div class="flex items-center space-x-3 text-gray-700 font-bold bg-gray-50 border border-gray-100 px-4 py-2 rounded-full shadow-sm">
-                    <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-regular fa-envelope"></i></div>
+                <div
+                    class="flex items-center space-x-3 text-gray-700 font-bold bg-gray-50 border border-gray-100 px-4 py-2 rounded-full shadow-sm">
+                    <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center"><i
+                            class="fa-regular fa-envelope"></i></div>
                     <span>自動通知信件</span>
                 </div>
-                <div class="flex items-center space-x-3 text-gray-700 font-bold bg-gray-50 border border-gray-100 px-4 py-2 rounded-full shadow-sm">
-                    <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-user-check"></i></div>
+                <div
+                    class="flex items-center space-x-3 text-gray-700 font-bold bg-gray-50 border border-gray-100 px-4 py-2 rounded-full shadow-sm">
+                    <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center"><i
+                            class="fa-solid fa-user-check"></i></div>
                     <span>專人後續追蹤</span>
                 </div>
             </div>
         </div>
 
         <div class="flex justify-center items-center mb-10" id="stepperContainer">
-            </div>
+        </div>
 
         <div id="view-courses" class="space-y-6">
             <h2 class="text-2xl font-bold text-center mb-6">請選擇您想預約的課程</h2>
@@ -90,36 +104,40 @@
         <div id="view-schedule" class="hidden space-y-6">
             <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
                 <h3 class="text-xl font-bold mb-4 flex items-center">
-                    <span class="bg-blue-100 text-blue-600 py-1 px-3 rounded text-sm mr-2" id="selected-course-name"></span>
+                    <span class="bg-blue-100 text-blue-600 py-1 px-3 rounded text-sm mr-2"
+                        id="selected-course-name"></span>
                     選擇日期與時段
                 </h3>
-                
+
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
                         <label class="block text-gray-700 font-medium mb-2">1. 選擇日期</label>
-                        <input type="date" id="booking-date" class="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-lg">
+                        <input type="date" id="booking-date"
+                            class="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-lg">
                     </div>
-                    
+
                     <div id="time-slots-container" class="opacity-50 pointer-events-none transition-opacity">
                         <label class="block text-gray-700 font-medium mb-2">2. 選擇時段</label>
                         <div class="space-y-3">
-                            <button onclick="selectTime('09:00-12:00')" id="btn-am" class="slot-btn w-full p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition text-left flex justify-between items-center group">
+                            <button onclick="selectTime('09:00-12:00')" id="btn-am"
+                                class="slot-btn w-full p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition text-left flex justify-between items-center group">
                                 <span><i class="fa-regular fa-sun mr-2"></i> 上午 (09:00-12:00)</span>
                                 <span class="status-text text-sm font-bold text-green-600">有空</span>
                             </button>
-                            <button onclick="selectTime('13:30-16:30')" id="btn-pm" class="slot-btn w-full p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition text-left flex justify-between items-center group">
+                            <button onclick="selectTime('13:30-16:30')" id="btn-pm"
+                                class="slot-btn w-full p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition text-left flex justify-between items-center group">
                                 <span><i class="fa-regular fa-moon mr-2"></i> 下午 (13:30-16:30)</span>
                                 <span class="status-text text-sm font-bold text-green-600">有空</span>
                             </button>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="mt-6 bg-yellow-50 border border-yellow-200 p-4 rounded text-sm text-yellow-800">
                     <i class="fa-solid fa-clock"></i> 系統將自動顯示當天剩餘的「有空」時段。灰色代表該時段已被預約。
                 </div>
             </div>
-            
+
             <div class="flex justify-between">
                 <button onclick="changeStep(1)" class="px-6 py-2 border rounded hover:bg-gray-100">重選課程</button>
             </div>
@@ -137,33 +155,44 @@
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-bold mb-1">邀請單位/學校名稱 *</label>
-                            <input type="text" name="org" required class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500" placeholder="例如：台積電文教基金會">
+                            <input type="text" name="org" required
+                                class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="例如：台積電文教基金會">
                         </div>
                         <div>
                             <label class="block text-sm font-bold mb-1">聯絡人姓名 *</label>
-                            <input type="text" name="name" required class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500" placeholder="王小明">
+                            <input type="text" name="name" required
+                                class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="王小明">
                         </div>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-bold mb-1">聯絡電話 *</label>
-                            <input type="tel" name="phone" required class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500" placeholder="0912-345-678">
+                            <input type="tel" name="phone" required
+                                class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="0912-345-678">
                         </div>
                         <div>
                             <label class="block text-sm font-bold mb-1">聯絡人 Email *</label>
-                            <input type="email" name="email" required class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500" placeholder="example@email.com">
+                            <input type="email" name="email" required
+                                class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="example@email.com">
                         </div>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-bold mb-1">社群帳號 (Line/FB擇一) *</label>
-                            <input type="text" name="social" required class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500" placeholder="Line ID 或 FB 連結">
+                            <input type="text" name="social" required
+                                class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="Line ID 或 FB 連結">
                         </div>
                         <div>
                             <label class="block text-sm font-bold mb-1">邀請縣市 *</label>
-                            <select name="city" required class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500 bg-white">
+                            <select name="city" required
+                                class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500 bg-white">
                                 <option value="">請選擇</option>
                                 <option value="基隆市">基隆市</option>
                                 <option value="台北市">台北市</option>
@@ -194,7 +223,8 @@
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-bold mb-1">講師鐘點費/hr</label>
-                            <select name="lecturerFee" class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500 bg-white">
+                            <select name="lecturerFee"
+                                class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500 bg-white">
                                 <option value="1500">1500</option>
                                 <option value="2000" selected>2000</option>
                                 <option value="2500">2500</option>
@@ -203,34 +233,41 @@
                             </select>
                         </div>
                         <div>
-                             <label class="block text-sm font-bold mb-1">車馬費提供</label>
-                             <div class="flex items-center space-x-4">
-                                 <label class="flex items-center"><input type="radio" name="feeType" value="有" checked class="mr-2"> 有提供實報實銷或定額</label>
-                                 <label class="flex items-center"><input type="radio" name="feeType" value="無" class="mr-2"> 無</label>
-                             </div>
+                            <label class="block text-sm font-bold mb-1">車馬費提供</label>
+                            <div class="flex items-center space-x-4">
+                                <label class="flex items-center"><input type="radio" name="feeType" value="有" checked
+                                        class="mr-2"> 有提供實報實銷或定額</label>
+                                <label class="flex items-center"><input type="radio" name="feeType" value="無"
+                                        class="mr-2"> 無</label>
+                            </div>
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-sm font-bold mb-1">備註需求</label>
-                        <textarea name="notes" rows="3" class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500" placeholder="例如：需自備投影筆、停車位安排..."></textarea>
+                        <textarea name="notes" rows="3"
+                            class="w-full p-3 border rounded focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="例如：需自備投影筆、停車位安排..."></textarea>
                     </div>
                 </form>
             </div>
 
             <div class="flex justify-between items-center">
-                <button onclick="changeStep(2)" class="text-gray-500 hover:text-gray-800"><i class="fa-solid fa-arrow-left"></i> 重選時段</button>
-                <button onclick="submitBooking()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition transform hover:scale-105">確認並送出預約</button>
+                <button onclick="changeStep(2)" class="text-gray-500 hover:text-gray-800"><i
+                        class="fa-solid fa-arrow-left"></i> 重選時段</button>
+                <button onclick="submitBooking()"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition transform hover:scale-105">確認並送出預約</button>
             </div>
         </div>
 
         <div id="view-success" class="hidden text-center py-12">
-            <div class="inline-flex items-center justify-center w-24 h-24 bg-green-100 text-green-500 rounded-full mb-6">
+            <div
+                class="inline-flex items-center justify-center w-24 h-24 bg-green-100 text-green-500 rounded-full mb-6">
                 <i class="fa-solid fa-check text-4xl"></i>
             </div>
             <h2 class="text-3xl font-bold mb-2">預約申請已送出！</h2>
             <p class="text-gray-600 mb-8">感謝您的填寫。我們已收到您的預約申請。</p>
-            
+
             <div class="bg-yellow-50 border border-yellow-100 p-6 rounded-xl max-w-lg mx-auto text-left mb-8">
                 <h4 class="font-bold text-yellow-800 mb-3"><i class="fa-regular fa-clock"></i> 後續流程說明：</h4>
                 <ul class="list-disc list-inside text-sm text-yellow-800 space-y-2">
@@ -239,26 +276,32 @@
                     <li>確認合作細節與費用後，將發送正式確認信。</li>
                 </ul>
             </div>
-            
-            <button onclick="location.reload()" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">回到首頁</button>
+
+            <button onclick="location.reload()"
+                class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">回到首頁</button>
         </div>
 
     </div>
 
     <!-- Course Detail Modal -->
-    <div id="public-course-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4 backdrop-blur-sm transition-opacity">
-        <div class="bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl relative animate-fade-in-up">
+    <div id="public-course-modal"
+        class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4 backdrop-blur-sm transition-opacity">
+        <div
+            class="bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl relative animate-fade-in-up">
             <!-- Close Button -->
-            <button onclick="closeCourseDetail()" class="absolute top-4 right-4 bg-black bg-opacity-50 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-opacity-70 transition z-10">
+            <button onclick="closeCourseDetail()"
+                class="absolute top-4 right-4 bg-black bg-opacity-50 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-opacity-70 transition z-10">
                 <i class="fa-solid fa-times"></i>
             </button>
 
             <div class="flex flex-col">
                 <!-- Image Top (Strict 16:9) -->
                 <div class="relative w-full pb-[56.25%] bg-gray-200 shrink-0 group">
-                    <img id="modal-course-img" src="" alt="Course Image" class="absolute inset-0 w-full h-full object-cover">
+                    <img id="modal-course-img" src="" alt="Course Image"
+                        class="absolute inset-0 w-full h-full object-cover">
                     <!-- Floating Action Button -->
-                    <button id="modal-book-btn" class="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105 flex items-center justify-center z-20 whitespace-nowrap border-2 border-white">
+                    <button id="modal-book-btn"
+                        class="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105 flex items-center justify-center z-20 whitespace-nowrap border-2 border-white">
                         <span>立即預約此課程</span>
                         <i class="fa-solid fa-arrow-right ml-2"></i>
                     </button>
@@ -271,15 +314,17 @@
                     </div>
 
                     <div class="flex flex-wrap gap-2 mb-6 text-sm items-center">
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium" id="modal-course-category"></span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium"
+                            id="modal-course-category"></span>
                         <div id="modal-course-tags" class="flex gap-2"></div>
-                        <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full"><i class="fa-regular fa-clock mr-1"></i> <span id="modal-course-duration"></span></span>
+                        <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full"><i
+                                class="fa-regular fa-clock mr-1"></i> <span id="modal-course-duration"></span></span>
                     </div>
 
                     <div class="prose prose-sm text-gray-600 mb-2 overflow-y-auto max-h-[40vh] custom-scrollbar">
                         <h4 class="font-bold text-gray-800 mb-2">課程介紹</h4>
                         <p id="modal-course-desc" class="whitespace-pre-line leading-relaxed mb-6"></p>
-                        
+
                         <!-- New Requirements Section -->
                         <div id="modal-req-section" class="hidden">
                             <h4 class="font-bold text-gray-800 mb-2">備註說明</h4>
@@ -293,372 +338,23 @@
         </div>
     </div>
 
-    <script>
-        // State
-        let currentStep = 1;
-        let selectedCourse = null;
-        let selectedDate = null;
-        let selectedTime = null;
-        let coursesCache = {}; // Cache for course data
-
-        // Render Stepper
-        function renderStepper() {
-            const steps = [
-                { num: 1, text: "選擇課程" },
-                { num: 2, text: "查詢時段" },
-                { num: 3, text: "填寫資料" }
-            ];
-            
-            let html = '<div class="flex items-center w-full max-w-2xl">';
-            steps.forEach((step, idx) => {
-                const isCompleted = step.num < currentStep;
-                const isActive = step.num === currentStep;
-                
-                // Circle
-                let circleClass = "w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 transition-all ";
-                if (isCompleted) circleClass += "bg-green-500 border-green-500 text-white";
-                else if (isActive) circleClass += "bg-blue-600 border-blue-600 text-white ring-4 ring-blue-100";
-                else circleClass += "bg-white border-gray-300 text-gray-400";
-
-                // Text
-                let textClass = "absolute top-12 text-xs font-bold w-20 text-center ";
-                textClass += isActive || isCompleted ? "text-gray-800" : "text-gray-400";
-
-                html += `
-                    <div class="relative flex flex-col items-center z-10">
-                        <div class="${circleClass}">
-                            ${isCompleted ? '<i class="fa-solid fa-check"></i>' : step.num}
-                        </div>
-                        <div class="${textClass}">${step.text}</div>
-                    </div>
-                `;
-
-                // Line
-                if (idx < steps.length - 1) {
-                    let lineClass = "flex-1 h-1 mx-2 transition-all duration-500 ";
-                    lineClass += isCompleted ? "bg-green-500" : "bg-gray-200";
-                    html += `<div class="${lineClass}"></div>`;
-                }
-            });
-            html += '</div>';
-            document.getElementById('stepperContainer').innerHTML = html;
-        }
-
-        // Init
-        window.addEventListener('DOMContentLoaded', async () => {
-            renderStepper();
-            await loadCourses();
-            
-            // Date Picker Listener
-            const dateInput = document.getElementById('booking-date');
-            // Set min date to tomorrow
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            dateInput.min = tomorrow.toISOString().split('T')[0];
-            
-            dateInput.addEventListener('change', async (e) => {
-                selectedDate = e.target.value;
-                if(selectedDate) {
-                    await checkAvailability(selectedDate);
-                }
-            });
-        });
-
-        async function loadCourses() {
-            const list = document.getElementById('course-list');
-            try {
-                const snapshot = await db.collection('courses').get();
-                if (snapshot.empty) {
-                    list.innerHTML = `<div class="col-span-full text-center">目前沒有課程，請至後台新增。</div>`;
-                    return;
-                }
-                
-                let html = '';
-                coursesCache = {}; // Reset cache
-
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    coursesCache[doc.id] = { ...data, id: doc.id }; // Store in cache
-
-                    // Generate Tags HTML
-                    let tagsHtml = '';
-                    if (data.tags && Array.isArray(data.tags) && data.tags.length > 0) {
-                        tagsHtml = data.tags.map(tag => 
-                            `<span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded-full ml-2">${tag}</span>`
-                        ).join('');
-                    }
-
-                    html += `
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition flex flex-col">
-                        <div class="relative w-full pb-[56.25%] bg-gray-200 cursor-pointer group overflow-hidden" 
-                             onclick="openCourseDetail('${doc.id}')">
-                             <img src="${data.image || 'https://via.placeholder.com/800x450?text=Course'}" 
-                                  alt="${data.title}" 
-                                  class="absolute inset-0 w-full h-full object-cover transition duration-300 group-hover:scale-105">
-                             <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center">
-                                <i class="fa-solid fa-eye text-white opacity-0 group-hover:opacity-100 text-3xl transition transform scale-50 group-hover:scale-100"></i>
-                             </div>
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">${data.category || '演講'}</span>
-                                <span class="text-gray-500 text-xs flex-shrink-0 ml-2"><i class="fa-regular fa-clock"></i> ${data.duration}</span>
-                            </div>
-                            <div class="flex items-center flex-wrap gap-y-1 mb-2 h-6 overflow-hidden">
-                                ${tagsHtml}
-                            </div>
-                            <h3 class="text-xl font-bold mb-2 text-gray-900 cursor-pointer hover:text-blue-600 truncate" onclick="openCourseDetail('${doc.id}')">${data.title}</h3>
-                            <div class="flex-1"></div>
-                            <button onclick="openCourseDetail('${doc.id}')" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">詳細內容</button>
-                        </div>
-                    </div>`;
-                });
-                list.innerHTML = html;
-            } catch (error) {
-                console.error(error);
-                list.innerHTML = "載入失敗";
-            }
-        }
-
-        function openCourseDetail(id) {
-            const course = coursesCache[id];
-            if (!course) return;
-
-            // Populate Modal Data
-            document.getElementById('modal-course-img').src = course.image || 'https://via.placeholder.com/800x450?text=Course';
-            document.getElementById('modal-course-title').innerText = course.title;
-            document.getElementById('modal-course-category').innerText = course.category || '一般';
-            document.getElementById('modal-course-duration').innerText = course.duration;
-            document.getElementById('modal-course-desc').innerText = course.description;
-
-            // Populate Requirements
-            let reqSection = document.getElementById('modal-req-section');
-            if(!reqSection) {
-                // If the section doesn't exist yet (first run), create it
-                const descP = document.getElementById('modal-course-desc');
-                reqSection = document.createElement('div');
-                reqSection.id = 'modal-req-section';
-                reqSection.className = 'hidden mt-6';
-                reqSection.innerHTML = `
-                    <h4 class="font-bold text-gray-800 mb-2">備註說明</h4>
-                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r">
-                        <p id="modal-course-req" class="whitespace-pre-line text-yellow-800"></p>
-                    </div>
-                `;
-                descP.parentNode.insertBefore(reqSection, descP.nextSibling);
-            }
-
-            const reqText = document.getElementById('modal-course-req');
-            
-            if (course.requirements && course.requirements.trim() !== "") {
-                reqText.innerText = course.requirements;
-                reqSection.classList.remove('hidden');
-            } else {
-                reqSection.classList.add('hidden');
-            }
-
-            // Populate Modal Tags
-            const tagsContainer = document.getElementById('modal-course-tags');
-            tagsContainer.innerHTML = '';
-            if (course.tags && Array.isArray(course.tags) && course.tags.length > 0) {
-                const tagsHtml = course.tags.map(tag => 
-                    `<span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded-full">${tag}</span>`
-                ).join('');
-                tagsContainer.innerHTML = tagsHtml;
-            }
-
-            // Setup Book Button in Modal
-            const btn = document.getElementById('modal-book-btn');
-            btn.onclick = function() {
-                closeCourseDetail();
-                selectCourse(course.id, course.title);
-            };
-
-            // Show Modal
-            const modal = document.getElementById('public-course-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        }
-
-        function closeCourseDetail() {
-            const modal = document.getElementById('public-course-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.style.overflow = ''; // Restore scrolling
-        }
-
-        function changeStep(step) {
-            currentStep = step;
-            document.getElementById('view-courses').classList.add('hidden');
-            document.getElementById('view-schedule').classList.add('hidden');
-            document.getElementById('view-form').classList.add('hidden');
-            document.getElementById('view-success').classList.add('hidden');
-
-            if(step === 1) document.getElementById('view-courses').classList.remove('hidden');
-            if(step === 2) document.getElementById('view-schedule').classList.remove('hidden');
-            if(step === 3) {
-                document.getElementById('view-form').classList.remove('hidden');
-                document.getElementById('confirm-date').innerText = selectedDate;
-                document.getElementById('confirm-time').innerText = selectedTime;
-                document.getElementById('confirm-course').innerText = selectedCourse.name;
-            }
-            renderStepper();
-            window.scrollTo(0,0);
-        }
-
-        function selectCourse(id, name) {
-            selectedCourse = { id, name };
-            document.getElementById('selected-course-name').innerText = name;
-            changeStep(2);
-        }
-
-        window.selectTime = function(time) {
-            // Check if disabled class exists
-            const btn = time === '09:00-12:00' ? document.getElementById('btn-am') : document.getElementById('btn-pm');
-            if(btn.disabled) return;
-
-            selectedTime = time;
-            
-            // Visual feedback
-            document.querySelectorAll('.slot-btn').forEach(b => {
-                b.classList.remove('ring-2', 'ring-blue-600', 'bg-blue-50');
-                b.querySelector('.status-text').innerText = b.disabled ? "已滿" : "有空";
-            });
-            
-            btn.classList.add('ring-2', 'ring-blue-600', 'bg-blue-50');
-            btn.querySelector('.status-text').innerHTML = '<i class="fa-solid fa-check-circle"></i> 已選';
-            
-            // Slight delay then next step
-            setTimeout(() => changeStep(3), 300);
-        }
-
-        async function checkAvailability(dateStr) {
-            const container = document.getElementById('time-slots-container');
-            container.classList.add('opacity-50', 'pointer-events-none');
-            
-            const btnAm = document.getElementById('btn-am');
-            const btnPm = document.getElementById('btn-pm');
-            
-            // Reset
-            [btnAm, btnPm].forEach(btn => {
-                btn.disabled = false;
-                btn.classList.remove('bg-gray-100', 'cursor-not-allowed', 'opacity-50');
-                btn.querySelector('.status-text').innerText = "查詢中...";
-                btn.querySelector('.status-text').className = "status-text text-sm font-bold text-gray-500";
-            });
-
-            // Query Firestore
-            const snapshot = await db.collection('bookings')
-                .where('date', '==', dateStr)
-                .get();
-
-            const bookedTimes = [];
-            snapshot.forEach(doc => bookedTimes.push(doc.data().timeSlot));
-
-            // Update UI
-            [btnAm, btnPm].forEach(btn => {
-                const time = btn.getAttribute('onclick').includes('09:00') ? '09:00-12:00' : '13:30-16:30';
-                if(bookedTimes.includes(time)) {
-                    btn.disabled = true;
-                    btn.classList.add('bg-gray-100', 'cursor-not-allowed', 'opacity-50');
-                    btn.querySelector('.status-text').innerText = "已滿";
-                    btn.querySelector('.status-text').className = "status-text text-sm font-bold text-gray-400";
-                } else {
-                    btn.querySelector('.status-text').innerText = "有空 (點選預約)";
-                    btn.querySelector('.status-text').className = "status-text text-sm font-bold text-green-600";
-                }
-            });
-
-            container.classList.remove('opacity-50', 'pointer-events-none');
-        }
-
-        async function submitBooking() {
-            const form = document.getElementById('bookingForm');
-            if(!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-
-            const formData = new FormData(form);
-            const data = {
-                courseId: selectedCourse.id,
-                courseName: selectedCourse.name,
-                date: selectedDate,
-                timeSlot: selectedTime,
-                orgName: formData.get('org'),
-                contactName: formData.get('name'),
-                contactPhone: formData.get('phone'),
-                contactEmail: formData.get('email'),
-                social: formData.get('social'),
-                city: formData.get('city'),
-                lecturerFee: formData.get('lecturerFee'), // 新增講師鐘點費
-                feeType: formData.get('feeType'),
-                notes: formData.get('notes'),
-                status: 'pending', // 待確認
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            };
-
-            try {
-                // Double check availability before submitting
-                const check = await db.collection('bookings')
-                    .where('date', '==', selectedDate)
-                    .where('timeSlot', '==', selectedTime)
-                    .get();
-                
-                if(!check.empty) {
-                    alert('哎呀！就在剛剛這個時段被搶走了，請重新選擇。');
-                    changeStep(2);
-                    return;
-                }
-
-                await db.collection('bookings').add(data);
-                
-                // Show Success
-                document.getElementById('view-form').classList.add('hidden');
-                document.getElementById('view-success').classList.remove('hidden');
-                currentStep = 4;
-                renderStepper();
-                
-                // Send Email via EmailJS
-                // Prepare parameters for the email template
-                const templateParams = {
-                    to_email: data.contactEmail,
-                    to_name: data.contactName,
-                    course_name: data.courseName,
-                    date: data.date,
-                    time_slot: data.timeSlot,
-                    org_name: data.orgName,
-                    lecturer_fee: data.lecturerFee // 傳送講師鐘點費
-                };
-
-                // TODO: Replace with your actual Service ID and Template ID from EmailJS dashboard
-                emailjs.send('service_3majwr9', 'template_iu6mebu', templateParams)
-                    .then(function(response) {
-                        console.log('Email sent successfully!', response.status, response.text);
-                    }, function(error) {
-                        console.error('Email sending failed...', error);
-                        // Optional: alert user that email failed but booking succeeded
-                    });
-                
-                console.log("Booking saved!");
-
-            } catch (e) {
-                console.error(e);
-                alert("送出失敗，請檢查網路連線");
-            }
-        }
-    </script>
+    <script src="js/app.js"></script>
     <footer class="bg-gray-900 text-gray-400 py-8 mt-0">
         <div class="container mx-auto px-4 text-center text-sm">
             <div class="flex justify-center space-x-6 mb-4">
-                <a href="mailto:hsuliang@gmail.com" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition" aria-label="Email 聯絡">
+                <a href="mailto:hsuliang@gmail.com"
+                    class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition"
+                    aria-label="Email 聯絡">
                     <i class="fa-regular fa-envelope"></i>
                 </a>
-                <a href="https://bit.ly/Aliang" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition" aria-label="ㄚ亮笑長練功坊">
+                <a href="https://bit.ly/Aliang" target="_blank" rel="noopener noreferrer"
+                    class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition"
+                    aria-label="ㄚ亮笑長練功坊">
                     <i class="fa-solid fa-globe"></i>
                 </a>
-                <a href="admin.html" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition" aria-label="管理端後台">
+                <a href="admin.html"
+                    class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition"
+                    aria-label="管理端後台">
                     <i class="fa-solid fa-user-gear"></i>
                 </a>
             </div>
@@ -671,4 +367,5 @@
         </div>
     </footer>
 </body>
+
 </html>
