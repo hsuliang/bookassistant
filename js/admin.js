@@ -14,9 +14,18 @@ auth.onAuthStateChanged(user => {
 
 document.getElementById('loginForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = document.getElementById('adminEmail').value;
+    let email = document.getElementById('adminEmail').value.trim();
     const pass = document.getElementById('adminPass').value;
-    auth.signInWithEmailAndPassword(email, pass).catch(err => alert("登入失敗: " + err.message));
+    
+    auth.signInWithEmailAndPassword(email, pass).catch(err => {
+        let msg = "登入失敗: " + err.message;
+        if(err.code === "auth/invalid-email") {
+            msg = "登入失敗：請輸入完整的信箱帳號 (包含 @ 符號後的網址)。";
+        } else if (err.code === "auth/invalid-login-credentials") {
+            msg = "登入失敗：帳號或密碼錯誤。如果您確定密碼正確，請檢查信箱帳號是否完整填寫。";
+        }
+        alert(msg);
+    });
 });
 
 function logout() { auth.signOut(); }
@@ -27,6 +36,8 @@ function switchTab(tab) {
     document.getElementById('tab-bookings').classList.add('hidden');
     document.getElementById('tab-courses').classList.add('hidden');
     document.getElementById('tab-reports').classList.add('hidden'); // Hide Reports
+    const el = document.getElementById('tab-portfolio');
+    if (el) el.classList.add('hidden'); // Hide Portfolio
 
     document.getElementById(`tab-${tab}`).classList.remove('hidden');
 
@@ -34,6 +45,7 @@ function switchTab(tab) {
     if (tab === 'bookings') loadBookings();
     if (tab === 'courses') loadAdminCourses();
     if (tab === 'reports') initReports(); // Init Reports
+    if (tab === 'portfolio') loadAdminPortfolios(); // Init Portfolio
 }
 
 // --- DASHBOARD LOGIC ---
@@ -1188,3 +1200,148 @@ function parseTimeSlotForHours(timeSlotString) {
     }
     return 0; // Default or error case for unknown time slots
 }
+
+// --- PORTFOLIO LOGIC ---
+function loadAdminPortfolios() {
+    db.collection('portfolios').orderBy('order', 'asc').onSnapshot(snap => {
+        const tbody = document.getElementById('portfolio-table-body');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        snap.forEach(doc => {
+            const data = doc.data();
+            const colorTheme = data.colorTheme || 'blue';
+            // Safe fallback logic. We can construct standard Tailwind color classes format since they are used in portfolio.html and thus available in CDN runtime or standard Tailwind
+            // On the admin side we just show some basic styling
+            const colorClass = `text-${colorTheme}-600`;
+            const bgClass = `bg-${colorTheme}-100`;
+            const iconHTML = `<i class="${data.iconClass || 'fa-solid fa-link'} ${colorClass} text-xl"></i>`;
+            
+            const row = `
+            <tr class="hover:bg-gray-50">
+                <td class="p-4 align-top">
+                    <div class="font-bold text-gray-800">${data.title}</div>
+                    <a href="${data.url}" target="_blank" class="text-xs text-blue-500 hover:underline break-all">${data.url}</a>
+                </td>
+                <td class="p-4 text-sm text-gray-600 align-top line-clamp-2">${data.description}</td>
+                <td class="p-4 align-top">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded flex items-center justify-center ${bgClass}">${iconHTML}</div>
+                        <span class="text-xs text-gray-500 uppercase">${colorTheme}</span>
+                    </div>
+                </td>
+                <td class="p-4 align-top font-mono text-gray-500">${data.order || 0}</td>
+                <td class="p-4 text-right space-x-2 align-top">
+                    <button onclick="editPortfolio('${doc.id}')" class="text-blue-600 hover:text-blue-800 text-sm"><i class="fa-solid fa-edit"></i> 編輯</button>
+                    <button onclick="deleteDoc('portfolios', '${doc.id}')" class="text-red-500 hover:text-red-700 text-sm"><i class="fa-solid fa-trash"></i> 刪除</button>
+                </td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
+    });
+}
+
+function openPortfolioModal() {
+    const form = document.getElementById('portfolioForm');
+    form.reset();
+    if (form.portfolioId) form.portfolioId.value = '';
+    
+    if (document.getElementById('iconSelect')) {
+        document.getElementById('iconSelect').value = 'fa-solid fa-link';
+        if(typeof window.updateIconSelection === 'function') window.updateIconSelection();
+    }
+
+    document.getElementById('portfolio-modal').classList.remove('hidden');
+    document.getElementById('portfolio-modal').classList.add('flex');
+}
+
+async function savePortfolio() {
+    const form = document.getElementById('portfolioForm');
+    
+    const data = {
+        title: form.title.value,
+        description: form.description.value,
+        url: form.url.value,
+        iconClass: form.iconClass.value || 'fa-solid fa-link',
+        colorTheme: form.colorTheme.value || 'blue',
+        order: parseInt(form.order.value) || 0
+    };
+
+    const docId = form.portfolioId.value;
+
+    try {
+        if (docId) {
+            await db.collection('portfolios').doc(docId).update(data);
+        } else {
+            await db.collection('portfolios').add(data);
+        }
+        document.getElementById('portfolio-modal').classList.add('hidden');
+        document.getElementById('portfolio-modal').classList.remove('flex');
+    } catch (e) {
+        alert("儲存失敗: " + e.message);
+        console.error(e);
+    }
+}
+
+async function editPortfolio(id) {
+    try {
+        const doc = await db.collection('portfolios').doc(id).get();
+        if (doc.exists) {
+            const data = doc.data();
+            const form = document.getElementById('portfolioForm');
+            
+            form.portfolioId.value = doc.id;
+            form.title.value = data.title || '';
+            form.description.value = data.description || '';
+            form.url.value = data.url || '';
+            form.colorTheme.value = data.colorTheme || 'blue';
+            form.order.value = data.order || 0;
+            
+            // Icon Select Mapping
+            form.iconClass.value = data.iconClass || 'fa-solid fa-link';
+            const iconSelect = document.getElementById('iconSelect');
+            if (iconSelect) {
+                const options = Array.from(iconSelect.options).map(o => o.value);
+                if (options.includes(form.iconClass.value)) {
+                    iconSelect.value = form.iconClass.value;
+                } else {
+                    iconSelect.value = 'custom';
+                    document.getElementById('customIconInput').value = form.iconClass.value;
+                }
+                if(typeof window.updateIconSelection === 'function') window.updateIconSelection();
+            }
+            
+            document.getElementById('portfolio-modal').classList.remove('hidden');
+            document.getElementById('portfolio-modal').classList.add('flex');
+        }
+    } catch (e) {
+        alert("讀取失敗");
+        console.error(e);
+    }
+}
+
+window.updateIconSelection = function() {
+    const select = document.getElementById('iconSelect');
+    const customInput = document.getElementById('customIconInput');
+    const previewIcon = document.getElementById('iconPreview');
+    if (!select || !customInput || !previewIcon) return;
+    
+    if (select.value === 'custom') {
+        customInput.classList.remove('hidden');
+        previewIcon.className = (customInput.value || 'fa-solid fa-question') + ' text-xl';
+    } else {
+        customInput.classList.add('hidden');
+        customInput.value = select.value;
+        previewIcon.className = select.value + ' text-xl';
+    }
+};
+
+window.updateIconPreview = function() {
+    const select = document.getElementById('iconSelect');
+    if (select && select.value === 'custom') {
+        const customClass = document.getElementById('customIconInput').value;
+        const previewIcon = document.getElementById('iconPreview');
+        if (previewIcon) {
+            previewIcon.className = (customClass || 'fa-solid fa-question') + ' text-xl';
+        }
+    }
+};

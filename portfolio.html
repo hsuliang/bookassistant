@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ㄚ亮笑長作品集 - 丫亮笑長練功坊預約助手</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="js/config.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="images/Alianglogo.png" type="image/png">
@@ -79,149 +83,8 @@
     <!-- Portfolio Grid -->
     <section class="py-16 px-6 bg-white flex-grow">
         <div class="container mx-auto max-w-6xl">
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <!-- Card New -->
-                <a href="https://hsuliang.github.io/slideagent" target="_blank"
-                    class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
-                    <div
-                        class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-teal-500 transition duration-300">
-                        <i
-                            class="fa-solid fa-chalkboard text-2xl text-teal-500 group-hover:text-white transition duration-300"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition">丫亮笑長的簡報助手</h3>
-                    <p class="text-gray-600 text-sm flex-grow">
-                        專為講師設計的 AI 簡報生成工具，快速產出高品質投影片架構。
-                    </p>
-                    <div class="mt-4 flex items-center text-teal-600 text-sm font-bold">
-                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
-                    </div>
-                </a>
-
-                <!-- Card 1 -->
-                <a href="https://hsuliang.github.io/lottery/" target="_blank"
-                    class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
-                    <div
-                        class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-blue-600 transition duration-300">
-                        <i
-                            class="fa-solid fa-ticket text-2xl text-blue-600 group-hover:text-white transition duration-300"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">ㄚ亮笑長的摸彩助手</h3>
-                    <p class="text-gray-600 text-sm flex-grow">
-                        輕鬆進行抽獎活動的實用工具，讓摸彩過程更加刺激有趣。
-                    </p>
-                    <div class="mt-4 flex items-center text-blue-600 text-sm font-bold">
-                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
-                    </div>
-                </a>
-
-                <!-- Card 2 -->
-                <a href="https://hsuliang.github.io/QuestWiz/" target="_blank"
-                    class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
-                    <div
-                        class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-yellow-500 transition duration-300">
-                        <i
-                            class="fa-solid fa-circle-question text-2xl text-yellow-500 group-hover:text-white transition duration-300"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition">ㄚ亮笑長的出題助手
-                    </h3>
-                    <p class="text-gray-600 text-sm flex-grow">
-                        協助老師快速出題，節省備課時間，提升教學效率的好幫手。
-                    </p>
-                    <div class="mt-4 flex items-center text-yellow-600 text-sm font-bold">
-                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
-                    </div>
-                </a>
-
-                <!-- Card 3 -->
-                <a href="https://hsuliang.github.io/YTTB/" target="_blank"
-                    class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
-                    <div
-                        class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-red-600 transition duration-300">
-                        <i
-                            class="fa-brands fa-youtube text-2xl text-red-600 group-hover:text-white transition duration-300"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition">ㄚ亮笑長的內容創作助手
-                    </h3>
-                    <p class="text-gray-600 text-sm flex-grow">
-                        專為內容創作者設計，協助整理素材與靈感的強大工具。
-                    </p>
-                    <div class="mt-4 flex items-center text-red-600 text-sm font-bold">
-                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
-                    </div>
-                </a>
-
-                <!-- Card 4 -->
-                <a href="https://hsuliang.github.io/bookassistant/" target="_blank"
-                    class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
-                    <div
-                        class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-green-600 transition duration-300">
-                        <i
-                            class="fa-solid fa-chalkboard-user text-2xl text-green-600 group-hover:text-white transition duration-300"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition">丫亮笑長的上課助手
-                    </h3>
-                    <p class="text-gray-600 text-sm flex-grow">
-                        整合預約與課程管理的系統，讓教學安排井然有序。
-                    </p>
-                    <div class="mt-4 flex items-center text-green-600 text-sm font-bold">
-                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
-                    </div>
-                </a>
-
-                <!-- Card 5 -->
-                <a href="https://hsuliang.github.io/tools/padletQR.html" target="_blank"
-                    class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
-                    <div
-                        class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-purple-600 transition duration-300">
-                        <i
-                            class="fa-solid fa-qrcode text-2xl text-purple-600 group-hover:text-white transition duration-300"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition">
-                        ㄚ亮笑長的Qrcode助手</h3>
-                    <p class="text-gray-600 text-sm flex-grow">
-                        快速生成 QR Code，方便課堂分享網址或資訊。
-                    </p>
-                    <div class="mt-4 flex items-center text-purple-600 text-sm font-bold">
-                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
-                    </div>
-                </a>
-
-                <!-- Card 6 -->
-                <a href="https://hsuliang.github.io/tools/reurl.html" target="_blank"
-                    class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
-                    <div
-                        class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-indigo-600 transition duration-300">
-                        <i
-                            class="fa-solid fa-link text-2xl text-indigo-600 group-hover:text-white transition duration-300"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition">丫亮笑長的縮網址助手
-                    </h3>
-                    <p class="text-gray-600 text-sm flex-grow">
-                        將冗長的網址縮短，讓分享連結變得更乾淨俐落。
-                    </p>
-                    <div class="mt-4 flex items-center text-indigo-600 text-sm font-bold">
-                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
-                    </div>
-                </a>
-
-                <!-- Card 7 -->
-                <a href="https://hsuliang.github.io/cdown2.html" target="_blank"
-                    class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
-                    <div
-                        class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-pink-500 transition duration-300">
-                        <i
-                            class="fa-solid fa-stopwatch text-2xl text-pink-500 group-hover:text-white transition duration-300"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-pink-600 transition">可愛簡易倒數計時器</h3>
-                    <p class="text-gray-600 text-sm flex-grow">
-                        簡單可愛的倒數計時器，適合課堂活動或時間管理使用。
-                    </p>
-                    <div class="mt-4 flex items-center text-pink-600 text-sm font-bold">
-                        立即試用 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
-                    </div>
-                </a>
-
+            <div id="portfolio-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Data will be loaded via JS -->
             </div>
         </div>
     </section>
@@ -255,6 +118,60 @@
         </div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('portfolio-grid');
+            if(!grid) return;
+
+            grid.innerHTML = '<div class="col-span-full py-12 flex flex-col items-center text-gray-400"><i class="fa-solid fa-spinner fa-spin text-4xl mb-4"></i><p>載入作品集中...</p></div>';
+
+            const tm = {
+                teal: { bgHover: 'group-hover:bg-teal-500', textIcon: 'text-teal-500', textHover: 'group-hover:text-teal-600', textAction: 'text-teal-600' },
+                blue: { bgHover: 'group-hover:bg-blue-600', textIcon: 'text-blue-600', textHover: 'group-hover:text-blue-600', textAction: 'text-blue-600' },
+                yellow: { bgHover: 'group-hover:bg-yellow-500', textIcon: 'text-yellow-500', textHover: 'group-hover:text-yellow-600', textAction: 'text-yellow-600' },
+                red: { bgHover: 'group-hover:bg-red-600', textIcon: 'text-red-600', textHover: 'group-hover:text-red-600', textAction: 'text-red-600' },
+                green: { bgHover: 'group-hover:bg-green-600', textIcon: 'text-green-600', textHover: 'group-hover:text-green-600', textAction: 'text-green-600' },
+                purple: { bgHover: 'group-hover:bg-purple-600', textIcon: 'text-purple-600', textHover: 'group-hover:text-purple-600', textAction: 'text-purple-600' },
+                indigo: { bgHover: 'group-hover:bg-indigo-600', textIcon: 'text-indigo-600', textHover: 'group-hover:text-indigo-600', textAction: 'text-indigo-600' },
+                pink: { bgHover: 'group-hover:bg-pink-500', textIcon: 'text-pink-500', textHover: 'group-hover:text-pink-600', textAction: 'text-pink-600' }
+            };
+
+            db.collection('portfolios').orderBy('order', 'asc').onSnapshot(snap => {
+                grid.innerHTML = '';
+                if(snap.empty) {
+                    grid.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500">目前尚無作品集資料</div>';
+                    return;
+                }
+
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    const theme = data.colorTheme || 'blue';
+                    const icon = data.iconClass || 'fa-solid fa-link';
+                    const tc = tm[theme] || tm.blue;
+
+                    const card = `
+                    <a href="${data.url}" target="_blank"
+                        class="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col h-full transform hover:-translate-y-1">
+                        <div
+                            class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm ${tc.bgHover} transition duration-300">
+                            <i class="${icon} text-2xl ${tc.textIcon} group-hover:text-white transition duration-300"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 ${tc.textHover} transition">${data.title}</h3>
+                        <p class="text-gray-600 text-sm flex-grow">
+                            ${data.description}
+                        </p>
+                        <div class="mt-4 flex items-center ${tc.textAction} text-sm font-bold">
+                            立即前往 <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                        </div>
+                    </a>`;
+                    grid.innerHTML += card;
+                });
+            }, err => {
+                console.error("載入作品集失敗:", err);
+                grid.innerHTML = '<div class="col-span-full py-12 text-center text-red-500">載入失敗，請稍後再試。</div>';
+            });
+        });
+    </script>
 </body>
 
 </html>
