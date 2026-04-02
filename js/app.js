@@ -268,8 +268,11 @@ function selectCourse(id, name) {
 }
 
 window.selectTime = function (time) {
-    // Check if disabled class exists
-    const btn = time === '09:00-12:00' ? document.getElementById('btn-am') : document.getElementById('btn-pm');
+    let btnId = 'btn-am';
+    if (time === '13:30-16:30') btnId = 'btn-pm';
+    if (time === '09:00-16:30') btnId = 'btn-full';
+
+    const btn = document.getElementById(btnId);
     if (!btn || btn.disabled) return;
 
     selectedTime = time;
@@ -295,10 +298,12 @@ async function checkAvailability(dateStr) {
 
     const btnAm = document.getElementById('btn-am');
     const btnPm = document.getElementById('btn-pm');
+    const btnFull = document.getElementById('btn-full');
+
+    const btns = [btnAm, btnPm, btnFull].filter(b => b);
 
     // Reset
-    [btnAm, btnPm].forEach(btn => {
-        if (!btn) return;
+    btns.forEach(btn => {
         btn.disabled = false;
         btn.classList.remove('bg-gray-100', 'cursor-not-allowed', 'opacity-50');
         const statusText = btn.querySelector('.status-text');
@@ -315,32 +320,59 @@ async function checkAvailability(dateStr) {
             .get();
 
         const bookedTimes = [];
-        snapshot.forEach(doc => bookedTimes.push(doc.data().timeSlot));
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            if (data.status !== 'cancelled') {
+                bookedTimes.push(data.timeSlot);
+            }
+        });
+
+        const isAmBooked = bookedTimes.includes('09:00-12:00');
+        const isPmBooked = bookedTimes.includes('13:30-16:30');
+        const isFullExplicitlyBooked = bookedTimes.includes('09:00-16:30');
+
+        // State for each button: 'available', 'booked', 'blocked'
+        const amStatus = (isAmBooked || isFullExplicitlyBooked) ? 'booked' : 'available';
+        const pmStatus = (isPmBooked || isFullExplicitlyBooked) ? 'booked' : 'available';
+        
+        let fullStatus = 'available';
+        if (isFullExplicitlyBooked) {
+            fullStatus = 'booked';
+        } else if (isAmBooked || isPmBooked) {
+            fullStatus = 'blocked'; // Blocked by partial appointment
+        }
 
         // Update UI
-        [btnAm, btnPm].forEach(btn => {
+        const updateBtn = (btn, status) => {
             if (!btn) return;
-            // Determine time slot from onclick attribute or ID
-            // Safe fallback: btn-am is morning, btn-pm is afternoon
-            const isAm = btn.id === 'btn-am';
-            const time = isAm ? '09:00-12:00' : '13:30-16:30';
-
             const statusText = btn.querySelector('.status-text');
-
-            if (bookedTimes.includes(time)) {
-                btn.disabled = true;
-                btn.classList.add('bg-gray-100', 'cursor-not-allowed', 'opacity-50');
-                if (statusText) {
-                    statusText.innerText = "已滿";
-                    statusText.className = "status-text text-sm font-bold text-gray-400";
-                }
-            } else {
+            
+            if (status === 'available') {
+                btn.disabled = false;
+                btn.classList.remove('bg-gray-100', 'cursor-not-allowed', 'opacity-50');
                 if (statusText) {
                     statusText.innerText = "有空 (點選預約)";
                     statusText.className = "status-text text-sm font-bold text-green-600";
                 }
+            } else {
+                btn.disabled = true;
+                btn.classList.add('bg-gray-100', 'cursor-not-allowed', 'opacity-50');
+                if (statusText) {
+                    if (status === 'booked') {
+                        statusText.innerText = "已滿";
+                        statusText.className = "status-text text-sm font-bold text-gray-400";
+                    } else if (status === 'blocked') {
+                        statusText.innerHTML = '<i class="fa-solid fa-ban mr-1"></i>無法選取';
+                        statusText.className = "status-text text-sm font-bold text-gray-400";
+                    }
+                }
             }
-        });
+        };
+
+        updateBtn(btnAm, amStatus);
+        updateBtn(btnPm, pmStatus);
+        updateBtn(btnFull, fullStatus);
+
     } catch (e) {
         console.error("Error checking availability:", e);
         alert("無法連線至資料庫，請檢查網路狀態");
@@ -416,13 +448,21 @@ async function submitBooking() {
 
         // Check if emailjs is defined
         if (typeof emailjs !== 'undefined') {
-            // TODO: Replace with your actual Service ID and Template ID from EmailJS dashboard
+            // 1. Send to Bookee
             emailjs.send('service_3majwr9', 'template_iu6mebu', templateParams)
                 .then(function (response) {
-                    console.log('Email sent successfully!', response.status, response.text);
+                    console.log('Bookee email sent successfully!', response.status, response.text);
                 }, function (error) {
-                    console.error('Email sending failed...', error);
-                    // Optional: alert user that email failed but booking succeeded
+                    console.error('Bookee email sending failed...', error);
+                });
+
+            // 2. Send to Admin (hsuliang@gmail.com)
+            const adminParams = { ...templateParams, to_email: 'hsuliang@gmail.com' };
+            emailjs.send('service_3majwr9', 'template_iu6mebu', adminParams)
+                .then(function (response) {
+                    console.log('Admin copy sent successfully!');
+                }, function (error) {
+                    console.error('Admin email sending failed...', error);
                 });
         }
 

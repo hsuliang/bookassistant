@@ -183,6 +183,12 @@
                             class="p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:bg-white transition hover:border-blue-400 max-w-[150px]">
                             <option value="">全部課程</option>
                         </select>
+                        <select id="filter-payment" onchange="renderBookings()"
+                            class="p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:bg-white transition hover:border-blue-400 font-bold text-gray-700">
+                            <option value="">全部入帳狀態</option>
+                            <option value="unpaid">🔴 未入帳</option>
+                            <option value="paid">🟢 已入帳</option>
+                        </select>
                     </div>
 
                     <!-- Search & Actions Group -->
@@ -396,7 +402,8 @@
                             <select name="timeSlot" class="w-full border p-2 rounded">
                                 <option value="09:00-12:00">上午 (09:00-12:00)</option>
                                 <option value="13:30-16:30">下午 (13:30-16:30)</option>
-                                <option value="全天/不指定">全天/不指定 (計為1單位)</option>
+                                <option value="09:00-16:30">全日 (09:00-16:30)</option>
+                                <option value="不指定時段">不指定時段 (計為1單位)</option>
                             </select>
                         </div>
                     </div>

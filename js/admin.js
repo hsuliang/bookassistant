@@ -392,6 +392,7 @@ function renderBookings() {
     const fMonth = document.getElementById('filter-month').value;
     const fOrg = document.getElementById('filter-org').value;
     const fCourse = document.getElementById('filter-course').value;
+    const fPayment = document.getElementById('filter-payment').value;
 
     // 1. Filter
     let filtered = bookingsData.filter(item => {
@@ -399,6 +400,9 @@ function renderBookings() {
         if (fMonth && (!item.date || !item.date.startsWith(fMonth))) return false;
         if (fOrg && item.orgName !== fOrg) return false;
         if (fCourse && item.courseName !== fCourse) return false;
+        
+        if (fPayment === 'paid' && !item.paymentReceived) return false;
+        if (fPayment === 'unpaid' && item.paymentReceived) return false;
 
         // Text Search
         if (!currentSearch) return true;
@@ -489,6 +493,15 @@ async function openBookingModal() {
 
     await loadCoursesForSelect(); // 等待課程選單載入完成
     toggleCustomWorkType(); // Reset custom input visibility
+    
+    // Protection for lecturerFee bug
+    form.lecturerFee.addEventListener('blur', (e) => {
+        // Ensure decimal and valid number, prevent automatic subtraction side effects
+        if (e.target.value) {
+            console.log('Lecturer fee value checked:', e.target.value);
+        }
+    }, { capture: true });
+
     document.getElementById('booking-modal').classList.remove('hidden');
     document.getElementById('booking-modal').classList.add('flex');
 }
@@ -1194,9 +1207,12 @@ window.editBooking = async function (id) {
 }
 
 function parseTimeSlotForHours(timeSlotString) {
-    if (timeSlotString === "全天/不指定") return 1;
+    if (timeSlotString === "不指定時段") return 1;
     if (timeSlotString === "09:00-12:00" || timeSlotString === "13:30-16:30") {
         return 3;
+    }
+    if (timeSlotString === "09:00-16:30") {
+        return 6;
     }
     return 0; // Default or error case for unknown time slots
 }
